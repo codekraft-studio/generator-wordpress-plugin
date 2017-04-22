@@ -1,0 +1,9 @@
+{
+  "generator-node": {
+    "promptValues": {
+      "authorName": "codekraft-studio",
+      "authorEmail": "info@codekraft.it",
+      "authorUrl": "https://codekraft.it"
+    }
+  }
+}

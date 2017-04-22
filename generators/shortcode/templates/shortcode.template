@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * <%= className %>_Shortcode.
+ * 
+ * @since <%= projectVersion %>
+ *
+ * @author <%= projectAuthor %>
+ * @license <%= projectLicense %>
+ *
+ */
+class <%= name %>_Shortcode {
+
+  /**
+   * The shortcode tag name
+   * @type {String}
+   */
+  private $shortcode_name = '<%= tag %>';
+
+  public function __construct() {
+
+    add_shortcode( $this->shortcode_name, array($this, 'do_shortcode') );
+
+  }
+
+  /**
+   * The shortcode rendering function
+   * @method do_shortcode
+   * @param {Array} $atts An associative array of attributes, or an empty string if no attributes are given
+   * @param {String} [$content=null] The enclosed content (if the shortcode is used in its enclosing form)
+   */
+  private function do_shortcode($atts, $content = null) {
+
+    // Get the shortcode options
+    $options = shortcode_atts( array( ), $atts );
+
+    return '<div>' . $content . '</div>';
+
+  }
+
+}
