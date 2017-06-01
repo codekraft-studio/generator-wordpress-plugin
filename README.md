@@ -13,8 +13,32 @@ npm install -g generator-wp-plugin
 Then generate your new project:
 
 ```bash
-yo wp-plugin
+yo wp-plugin [name]
 ```
+
+## Development
+
+Until the module it's not yet available as a global npm module. A global module may be created and symlinked to a local one, using npm. 
+
+Move inside the project folder and type:
+
+```bash
+npm link
+```
+
+That will install your project dependencies and symlink a global module to your local file. After npm is done, you'll be able to call `yo wp-plugin`
+
+
+## Contributing
+
+1. Create an issue and describe your idea
+2. Fork the project
+3. Create your feature branch (`git checkout -b my-new-feature`)
+4. Commit your changes (`git commit -am 'Add some feature'`)
+5. Publish the branch (`git push origin my-new-feature`)
+6. Create a new Pull Request
+
+---
 
 ## Getting To Know Yeoman
 
