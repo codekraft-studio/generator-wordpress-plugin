@@ -1,6 +1,6 @@
 {
-  "name": "generator-wp-plugin",
-  "version": "0.0.0",
+  "name": "generator-wordpress-plugin",
+  "version": "0.0.1",
   "description": "The best way to start creating your WordPress plugin projects.",
   "homepage": "",
   "author": {
@@ -9,7 +9,10 @@
     "url": "https://codekraft.it"
   },
   "files": [
-    "generators"
+    "app",
+    "metabox",
+    "shortcode",
+    "widget"
   ],
   "main": "generators/index.js",
   "keywords": [
@@ -21,17 +24,17 @@
   "devDependencies": {
     "yeoman-test": "^1.6.0",
     "yeoman-assert": "^3.0.0",
-    "coveralls": "^2.12.0",
+    "coveralls": "^2.13.1",
     "nsp": "^2.6.3",
-    "eslint": "^3.18.0",
+    "eslint": "^4.0.0",
     "eslint-config-xo-space": "^0.16.0",
-    "jest": "^19.0.2",
-    "jest-cli": "^19.0.1"
+    "jest": "^20.0.4",
+    "jest-cli": "^20.0.4"
   },
   "dependencies": {
     "chalk": "^1.1.3",
     "lodash": "^4.17.4",
-    "yeoman-generator": "^1.0.0",
+    "yeoman-generator": "^1.1.1",
     "yosay": "^2.0.0"
   },
   "jest": {
@@ -43,12 +46,14 @@
     "test": "jest"
   },
   "eslintConfig": {
-    "extends": "xo-space",
     "env": {
       "jest": true,
       "node": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 6
     }
   },
-  "repository": "codekraft-studio/generator-wp-plugin",
+  "repository": "codekraft-studio/generator-wordpress-plugin",
   "license": "Apache-2.0"
 }
