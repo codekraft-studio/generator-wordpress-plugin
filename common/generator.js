@@ -14,8 +14,12 @@ module.exports = class WPGenerator extends Generator {
   }
 
   defaults() {
+    let config = this.config.getAll();
+    if( _.isEmpty(config) ) {
+      this.env.error("You must run this command inside a existing project.");
+    }
     // Get the global project variables
-    this.props = _.assignIn(this.config.getAll(), this.props);
+    this.props = _.assignIn(config, this.props);
   }
 
   end() {
