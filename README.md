@@ -34,7 +34,7 @@ That will install your project dependencies and symlink a global module to your 
 ## Contributing
 
 1. Create an issue and describe your idea
-2. Fork the project
+2. Fork the project (https://github.com/codekraft-studio/generator-wordpress-plugin/fork)
 3. Create your feature branch (`git checkout -b my-new-feature`)
 4. Commit your changes (`git commit -am 'Add some feature'`)
 5. Publish the branch (`git push origin my-new-feature`)
