@@ -15,8 +15,23 @@ npm install -g generator-wordpress-plugin
 Then generate your new project:
 
 ```bash
-yo wordpress-plugin [name]
+yo wordpress-plugin
 ```
+
+Once you are inside a existing project, generated with this tool you can also do:
+```bash
+yo wordpress-plugin:metabox My Metabox
+yo wordpress-plugin:shortcode My Shortcode
+yo wordpress-plugin:widget My Widget
+```
+
+## Generators
+Available generators:
+  + __app__: Default generator (same as `yo wordpress-plugin`)
+  + __metabox__: For generating metaboxes in `include/metaboxes/`
+  + __shortcode__: For generating shortcodes in `include/shortcodes/`
+  + __widget__: For generating widgets in `include/widgets/`
+
 
 ## Development
 
