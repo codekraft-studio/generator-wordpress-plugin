@@ -1,19 +1,21 @@
-# generator-wp-plugin [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
+# generator-wordpress-plugin 
+
+[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
 > The best way to start creating your WordPress plugin projects.
 
 ## Installation
 
-First, install [Yeoman](http://yeoman.io) and generator-wp-plugin using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
+First, install [Yeoman](http://yeoman.io) and generator-wordpress-plugin using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
 
 ```bash
 npm install -g yo
-npm install -g generator-wp-plugin
+npm install -g generator-wordpress-plugin
 ```
 
 Then generate your new project:
 
 ```bash
-yo wp-plugin [name]
+yo wordpress-plugin [name]
 ```
 
 ## Development
@@ -26,7 +28,7 @@ Move inside the project folder and type:
 npm link
 ```
 
-That will install your project dependencies and symlink a global module to your local file. After npm is done, you'll be able to call `yo wp-plugin`
+That will install your project dependencies and symlink a global module to your local file. After npm is done, you'll be able to call `yo wordpress-plugin`
 
 
 ## Contributing
@@ -52,11 +54,11 @@ That will install your project dependencies and symlink a global module to your 
 Apache-2.0 © [codekraft-studio](https://codekraft.it)
 
 
-[npm-image]: https://badge.fury.io/js/generator-wp-plugin.svg
-[npm-url]: https://npmjs.org/package/generator-wp-plugin
-[travis-image]: https://travis-ci.org/codekraft-studio/generator-wp-plugin.svg?branch=master
-[travis-url]: https://travis-ci.org/codekraft-studio/generator-wp-plugin
-[daviddm-image]: https://david-dm.org/codekraft-studio/generator-wp-plugin.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org/codekraft-studio/generator-wp-plugin
-[coveralls-image]: https://coveralls.io/repos/codekraft-studio/generator-wp-plugin/badge.svg
-[coveralls-url]: https://coveralls.io/r/codekraft-studio/generator-wp-plugin
+[npm-image]: https://badge.fury.io/js/generator-wordpress-plugin.svg
+[npm-url]: https://npmjs.org/package/generator-wordpress-plugin
+[travis-image]: https://travis-ci.org/codekraft-studio/generator-wordpress-plugin.svg?branch=master
+[travis-url]: https://travis-ci.org/codekraft-studio/generator-wordpress-plugin
+[daviddm-image]: https://david-dm.org/codekraft-studio/generator-wordpress-plugin.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org/codekraft-studio/generator-wordpress-plugin
+[coveralls-image]: https://coveralls.io/repos/codekraft-studio/generator-wordpress-plugin/badge.svg
+[coveralls-url]: https://coveralls.io/r/codekraft-studio/generator-wordpress-plugin

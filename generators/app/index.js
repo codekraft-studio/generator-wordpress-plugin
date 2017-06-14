@@ -10,7 +10,7 @@ module.exports = class extends Generator {
   prompting() {
     // Have Yeoman greet the user.
     this.log(yosay(
-      'Welcome to the first-rate ' + chalk.green('wp-plugin') + ' generator!'
+      'Welcome to the first-rate ' + chalk.green('wordpress-plugin') + ' generator!'
     ));
 
     // The project details prompting
