@@ -75,5 +75,5 @@ Apache-2.0 © [codekraft-studio](https://codekraft.it)
 [travis-url]: https://travis-ci.org/codekraft-studio/generator-wordpress-plugin
 [daviddm-image]: https://david-dm.org/codekraft-studio/generator-wordpress-plugin.svg?theme=shields.io
 [daviddm-url]: https://david-dm.org/codekraft-studio/generator-wordpress-plugin
-[coveralls-image]: https://coveralls.io/repos/codekraft-studio/generator-wordpress-plugin/badge.svg
-[coveralls-url]: https://coveralls.io/r/codekraft-studio/generator-wordpress-plugin
+[coveralls-image]: https://coveralls.io/repos/github/codekraft-studio/generator-wordpress-plugin/badge.svg?branch=master
+[coveralls-url]: https://coveralls.io/github/codekraft-studio/generator-wordpress-plugin?branch=master
