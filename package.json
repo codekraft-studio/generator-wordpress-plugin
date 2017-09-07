@@ -9,10 +9,8 @@
     "url": "https://codekraft.it"
   },
   "files": [
-    "app",
-    "metabox",
-    "shortcode",
-    "widget"
+    "generators",
+    "common"
   ],
   "main": "generators/index.js",
   "keywords": [
@@ -43,7 +41,7 @@
   "scripts": {
     "prepublish": "nsp check",
     "pretest": "eslint . --fix",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "eslintConfig": {
     "env": {
