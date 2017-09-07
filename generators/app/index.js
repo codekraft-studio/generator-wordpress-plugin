@@ -6,6 +6,8 @@ const path = require('path');
 const chalk = require('chalk');
 const yosay = require('yosay');
 
+const utils = require('../../common/utils');
+
 module.exports = class extends Generator {
   prompting() {
     // Have Yeoman greet the user.
@@ -13,19 +15,15 @@ module.exports = class extends Generator {
       'Welcome to the first-rate ' + chalk.green('wordpress-plugin') + ' generator!'
     ));
 
-    // The project details prompting
+    // Main project setup prompt questions
+    // this details are stored into yo-rc config file
     const prompts = [
       {
         type: 'text',
         name: 'projectName',
         message: 'What slug do you want to use for this project?',
         default: _.kebabCase(this.appname),
-        validate: function (input) {
-          if (!/^(?:[a-z]+-?[a-z]+)+$/g.test(input)) {
-            return 'You should follow the WordPress plugin name standard.';
-          }
-          return true;
-        }
+        validate: utils.validateSlug
       },
       {
         name: 'projectTitle',
@@ -33,12 +31,7 @@ module.exports = class extends Generator {
         default: function (answers) {
           return _.startCase(_.toLower(answers.projectName));
         },
-        validate: function (value) {
-          if (value === '') {
-            return 'This field is required, please enter a valid value.';
-          }
-          return true;
-        }
+        validate: utils.validateRequired
       },
       {
         type: 'text',
@@ -53,24 +46,14 @@ module.exports = class extends Generator {
         name: 'projectManager',
         message: 'Do you want to use grunt or gulp as your build system?',
         default: 'grunt',
-        validate: function (input) {
-          if (['grunt', 'gulp'].indexOf(input) === -1) {
-            return 'You must use grunt or gulp.';
-          }
-          return true;
-        }
+        validate: utils.validateProjectManager
       },
       {
         type: 'text',
         name: 'projectVersion',
         message: 'The version to initialize this project.',
         default: '0.0.1',
-        validate: function (input) {
-          if (!/[0-9]{1}\.([0-9]{1})\.([0-9]{1})/.test(input)) {
-            return 'You should enter a valid version.';
-          }
-          return true;
-        }
+        validate: utils.validateVresion
       },
       {
         type: 'text',
@@ -83,16 +66,11 @@ module.exports = class extends Generator {
         name: 'projectLicense',
         message: 'What license do you want to use?',
         default: 'ISC',
-        validate: function (value) {
-          if (value === '') {
-            return 'This field is required, please enter a valid value.';
-          }
-          return true;
-        }
+        validate: utils.validateRequired
       }
     ];
 
-    // Get details from user
+    // Prompt the questions to the user
     return this.prompt(prompts).then(props => {
       this.props = props;
     });
