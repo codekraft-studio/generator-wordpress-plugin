@@ -27,11 +27,11 @@ describe('generator-wordpress-plugin:shortcode', () => {
     });
 
     it('creates files', () => {
-      assert.file(['include/shortcodes/class-test.php']);
+      assert.file(['include/shortcode/class-test.php']);
     });
 
     it('should have the correct class name', () => {
-      assert.fileContent('include/shortcodes/class-test.php', 'class Test_Shortcode');
+      assert.fileContent('include/shortcode/class-test.php', 'class Test_Shortcode');
     });
 
   });

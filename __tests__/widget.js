@@ -1,7 +1,7 @@
 'use strict';
-var path = require('path');
-var assert = require('yeoman-assert');
-var helpers = require('yeoman-test');
+const path = require('path');
+const assert = require('yeoman-assert');
+const helpers = require('yeoman-test');
 
 describe('generator-wordpress-plugin:widget', () => {
   describe('with a existing project', () => {
@@ -16,6 +16,7 @@ describe('generator-wordpress-plugin:widget', () => {
       };
 
       let generator = helpers.run(path.join(__dirname, '../generators/widget'))
+        .withPrompts({ description: 'The widget test.' })
         .withArguments(['Test']);
 
       generator.on('ready', (generator) => {
@@ -27,11 +28,11 @@ describe('generator-wordpress-plugin:widget', () => {
     });
 
     it('creates files', () => {
-      assert.file(['include/widgets/class-test.php']);
+      assert.file(['include/widget/class-test.php']);
     });
 
     it('should have the correct class name', () => {
-      assert.fileContent('include/widgets/class-test.php', 'class Test_Widget');
+      assert.fileContent('include/widget/class-test.php', 'class Test_Widget');
     });
 
   });

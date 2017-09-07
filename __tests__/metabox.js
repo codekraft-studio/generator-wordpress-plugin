@@ -1,9 +1,9 @@
 'use strict';
 
-var path = require('path');
-var assert = require('yeoman-assert');
-var helpers = require('yeoman-test');
-var fs = require('fs');
+const path = require('path');
+const assert = require('yeoman-assert');
+const helpers = require('yeoman-test');
+const fs = require('fs');
 
 describe('generator-wordpress-plugin:metabox', () => {
 
@@ -31,11 +31,11 @@ describe('generator-wordpress-plugin:metabox', () => {
     });
 
     it('creates files', () => {
-      assert.file(['include/metaboxes/class-test.php']);
+      assert.file(['include/metabox/class-test.php']);
     });
 
     it('should have the correct class name', () => {
-      assert.fileContent('include/metaboxes/class-test.php', 'class Test_Metabox');
+      assert.fileContent('include/metabox/class-test.php', 'class Test_Metabox');
     });
 
   });

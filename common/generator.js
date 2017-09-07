@@ -1,4 +1,5 @@
 'use strict';
+
 const _ = require('lodash');
 const chalk = require('chalk');
 const Generator = require('yeoman-generator');
@@ -22,8 +23,20 @@ module.exports = class WPGenerator extends Generator {
     this.props = _.assignIn(config, this.props);
   }
 
+  writing() {
+    // Get filename from options
+    const filename = _.kebabCase(this.options.name);
+
+    // Render and write submodule template
+    this.fs.copyTpl(
+      this.templatePath('template.ejs'),
+      this.destinationPath(`include/${this.name}/class-${filename}.php`),
+      this.props
+    );
+  }
+
   end() {
-    this.log('\n', 'Everything is', chalk.green('ready'), '!');
+    // TODO: Put some post-setup message
   }
 
 };

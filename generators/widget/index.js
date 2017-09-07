@@ -1,5 +1,7 @@
 'use strict';
+
 const _ = require('lodash');
+const path = require('path');
 const chalk = require('chalk');
 const WPGenerator = require('../../common/generator.js');
 
@@ -21,17 +23,19 @@ module.exports = class extends WPGenerator {
   configuring() {
     // Get the project defaults
     this.defaults();
+
+    // The subgenerator name
+    this.name = path.basename(__dirname);
+
+    // Sub generator properties overrides
     this.props.id = _.snakeCase(this.options.name);
     this.props.title = _.startCase(this.options.name);
     this.props.className = _.upperFirst(_.camelCase(this.options.name));
   }
 
+  // Call the parent writing method
   writing() {
-    this.fs.copyTpl(
-      this.templatePath('widget.template'),
-      this.destinationPath('include/widgets/class-' + _.kebabCase(this.options.name) + '.php'),
-      this.props
-    );
+    super.writing()
   }
 
   informations() {
@@ -40,9 +44,6 @@ module.exports = class extends WPGenerator {
       'include_once(' + this.props.definePrefix + '_INCLUDE_DIR . \'widgets/class-' + _.kebabCase(this.options.name) + '.php\');',
       chalk.bold.yellow('to your plugin main class.')
     );
-
-    // Say goodbye
-    this.end();
   }
 
 };

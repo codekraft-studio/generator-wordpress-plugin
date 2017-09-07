@@ -1,14 +1,20 @@
 'use strict';
-const Generator = require('yeoman-generator');
+
 const _ = require('lodash');
 const mkdirp = require('mkdirp');
 const path = require('path');
 const chalk = require('chalk');
 const yosay = require('yosay');
+const Generator = require('yeoman-generator');
 
+// Common functions
 const utils = require('../../common/utils');
 
+// The main generator is indipendent from all
+// it initiate the project creating also a configuration file
+// for later submodules generation -- all the submodules requires this file
 module.exports = class extends Generator {
+  // Ask user for project details
   prompting() {
     // Have Yeoman greet the user.
     this.log(yosay(
@@ -76,6 +82,7 @@ module.exports = class extends Generator {
     });
   }
 
+  // Configure the project folder and context
   configuring() {
     // Create the root folder if not exists
     if (path.basename(this.destinationPath()) !== this.props.projectName) {
@@ -83,14 +90,22 @@ module.exports = class extends Generator {
         'Your generator must be inside a folder named ' + this.props.projectName + '\n' +
         'I\'ll automatically create this folder.'
       );
-      mkdirp(this.props.projectName);
+
+      // Try to create the folder
+      if( !mkdirp.sync(this.props.projectName) ) {
+        // Exit with error since project root can't be created
+      }
+
+      // Change the project root to newly created directory
       this.destinationRoot(this.destinationPath(this.props.projectName));
     }
 
+    // Build project prefixes/namespaces
     this.props.className = _.upperFirst(_.camelCase(this.props.projectName));
     this.props.definePrefix = this.props.className.toUpperCase();
   }
 
+  // Save the project details into configuration file
   savings() {
     // Store the main project configurations
     this.config.set(this.props);
@@ -98,6 +113,7 @@ module.exports = class extends Generator {
     this.config.save();
   }
 
+  // Compile and write the project files
   writing() {
     this.fs.copyTpl(
       this.templatePath('plugin/include/*'),
@@ -112,8 +128,8 @@ module.exports = class extends Generator {
     );
   }
 
+  // Install project dependencies
   install() {
     this.installDependencies();
   }
-
 };
