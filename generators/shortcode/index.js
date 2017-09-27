@@ -16,7 +16,7 @@ module.exports = class extends WPGenerator {
     // Sub generator properties overrides
     this.props.name = _.upperFirst(_.camelCase(this.options.name));
     this.props.tag = _.kebabCase(this.options.name);
-    this.props.className = _.upperFirst(_.camelCase(this.options.name));
+    this.props.childClassName = _.upperFirst(_.camelCase(this.options.name));
   }
 
   // Call the parent writing method
