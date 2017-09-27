@@ -1,6 +1,8 @@
 'use strict';
 
 const _ = require('lodash');
+const fs = require('fs');
+const writer = require('php-writer');
 const chalk = require('chalk');
 const Generator = require('yeoman-generator');
 
@@ -12,6 +14,22 @@ module.exports = class WPGenerator extends Generator {
     this.props = {};
     // Set the name argument as required
     this.argument('name', {type: String, required: true});
+  }
+
+  // Get the plugin main class file content
+  getMainClassFile() {
+    const mainClass = this.destinationPath('include/class-main.php');
+    const content = fs.readFileSync( mainClass, 'utf8' );
+    return new writer(content);
+  }
+
+  // Write the plugin main class file content
+  setMainClassFile(content) {
+    const mainClass = this.destinationPath('include/class-main.php');
+    // Write the file back to disk
+    fs.writeFileSync(mainClass, content, {
+      encoding: 'utf8'
+    });
   }
 
   defaults() {
@@ -35,8 +53,9 @@ module.exports = class WPGenerator extends Generator {
     );
   }
 
+  // Print the end message
   end() {
-    // TODO: Put some post-setup message
+    this.log( chalk.bold.yellow('The generator has finished his job.') );
   }
 
 };
