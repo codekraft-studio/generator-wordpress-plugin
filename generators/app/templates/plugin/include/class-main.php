@@ -7,6 +7,8 @@ class <%= className %> {
 
   private $settings;
 
+  private $widgets = array();
+
   public function __construct() {
 
     // Plugin uninstall hook
@@ -27,6 +29,14 @@ class <%= className %> {
     add_action( 'admin_enqueue_scripts', array($this, 'plugin_enqueue_admin_scripts') );
     add_action( 'admin_init', array($this, 'plugin_register_settings') );
     add_action( 'admin_menu', array($this, 'plugin_add_settings_pages') );
+
+    // Register plugin widgets
+    add_action( 'widgets_init', function(){
+    	foreach ($this->widgets as $widgetName => $widgetPath) {
+    	  include_once( <%= definePrefix %>_INCLUDE_DIR . $widgetPath );
+        register_widget( $widgetName );
+    	}
+    });
 
   }
 
@@ -126,8 +136,7 @@ class <%= className %> {
   */
   function plugin_enqueue_admin_scripts() {
     wp_register_style( '<%= projectName %>_admin_style', <%= definePrefix %>_DIR_URL . '/assets/dist/css/admin.css', array(), null );
-    wp_register_script( '<%= projectName %>_admin_script', <%= definePrefix %>_DIR_URL . '/assets/dist/js/admin/admin.min.js', array(), null, true );
-    wp_enqueue_script('jquery');
+    wp_register_script( '<%= projectName %>_admin_script', <%= definePrefix %>_DIR_URL . '/assets/dist/js/admin/admin.min.js', array('jquery'), null, true );
     wp_enqueue_style('<%= projectName %>_admin_style');
     wp_enqueue_script('<%= projectName %>_admin_script');
   }
@@ -138,8 +147,7 @@ class <%= className %> {
   */
   function plugin_enqueue_scripts() {
     wp_register_style( '<%= projectName %>_user_style', <%= definePrefix %>_DIR_URL . '/assets/dist/css/user.css', array(), null );
-    wp_register_script( '<%= projectName %>_user_script', <%= definePrefix %>_DIR_URL . '/assets/dist/js/user/user.min.js', array(), null, true );
-    wp_enqueue_script('jquery');
+    wp_register_script( '<%= projectName %>_user_script', <%= definePrefix %>_DIR_URL . '/assets/dist/js/user/user.min.js', array('jquery'), null, true );
     wp_enqueue_style('<%= projectName %>_user_style');
     wp_enqueue_script('<%= projectName %>_user_script');
   }

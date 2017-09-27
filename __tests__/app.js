@@ -24,6 +24,10 @@ describe('generator-wordpress-plugin:app', () => {
     assert.equal(path.basename(process.cwd()), 'my-plugin');
   });
 
+  it('creates the main plugin class file', () => {
+    assert.file(['include/class-main.php']);
+  });
+
   it('creates a project configuration file', () => {
     assert.file('.yo-rc.json');
   });
