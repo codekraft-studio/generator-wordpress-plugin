@@ -9,6 +9,8 @@ class <%= className %> {
 
   private $widgets = array();
 
+  private $shortcodes = array();
+
   public function __construct() {
 
     // Plugin uninstall hook
@@ -37,6 +39,12 @@ class <%= className %> {
         register_widget( $widgetName );
     	}
     });
+
+    // Init plugin shortcodes
+    foreach ($this->shortcodes as $className => $path) {
+      include_once( <%= definePrefix %>_INCLUDE_DIR . $path );
+      call_user_func( array( $className, '__construct' ) );
+    }
 
   }
 
