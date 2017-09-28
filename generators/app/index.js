@@ -126,6 +126,32 @@ module.exports = class extends Generator {
       this.destinationPath(this.props.projectName + '.php'),
       this.props
     );
+
+    // Write the project manager files
+    switch (this.props.projectManager) {
+      case 'grunt':
+        this.fs.copyTpl(
+          this.templatePath('grunt/_package.json'),
+          this.destinationPath('package.json'),
+          this.props
+        );
+        this.fs.copy(
+          this.templatePath('grunt/_Gruntfile.js'),
+          this.destinationPath('Gruntfile.js')
+        );
+        break;
+      case 'gulp':
+        this.fs.copyTpl(
+          this.templatePath('gulp/_package.json'),
+          this.destinationPath('package.json'),
+          this.props
+        );
+        this.fs.copy(
+          this.templatePath('gulp/_gulpfile.js'),
+          this.destinationPath('gulpfile.js')
+        );
+        break;
+    }
   }
 
   // Install project dependencies
