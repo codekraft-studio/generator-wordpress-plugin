@@ -69,7 +69,7 @@ module.exports = class extends WPGenerator {
         },
         value: {
           kind: 'string',
-          value: `/metabox/class-${_.kebabCase(this.options.name)}.php`,
+          value: `/widget/class-${_.kebabCase(this.options.name)}.php`,
           isDoubleQuote: false
         }
       });
