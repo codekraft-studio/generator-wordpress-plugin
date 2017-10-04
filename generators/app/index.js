@@ -124,6 +124,12 @@ module.exports = class extends Generator {
       this.props
     );
 
+    // Copy the gitignore file (must specify the output filename)
+    this.fs.copy(
+      this.templatePath('plugin/.gitignore'),
+      this.destinationPath('.gitignore')
+    );
+
     this.fs.copyTpl(
       this.templatePath('plugin/_plugin.php'),
       this.destinationPath(this.props.projectName + '.php'),
