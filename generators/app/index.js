@@ -103,6 +103,9 @@ module.exports = class extends Generator {
     // Build project prefixes/namespaces
     this.props.className = _.upperFirst(_.camelCase(this.props.projectName));
     this.props.definePrefix = this.props.className.toUpperCase();
+
+    // Init an empty repository
+    this.spawnCommandSync('git', ['init', '--quiet']);
   }
 
   // Save the project details into configuration file
