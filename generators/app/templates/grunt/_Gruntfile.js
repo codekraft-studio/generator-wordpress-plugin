@@ -117,6 +117,16 @@ module.exports = function (grunt) {
           domainPath: '/languages'
         }
       }
+    },
+
+    // Build the php documentation
+    phpdocs: {
+      options: {},
+      dist: {
+        source: './include',
+        destination: './docs',
+        template: 'responsive-twig'
+      }
     }
 
   });
@@ -131,12 +141,13 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-newer');
   grunt.loadNpmTasks('grunt-postcss');
   grunt.loadNpmTasks('grunt-wp-i18n');
+  grunt.loadNpmTasks('grunt-phpdocs');
 
   // Register watch task
   grunt.registerTask('default', ['watch']);
 
   // Register build task
-  grunt.registerTask('build', ['clean:all', 'build-scripts', 'build-styles', 'makepot']);
+  grunt.registerTask('build', ['clean:all', 'build-scripts', 'build-styles', 'makepot', 'phpdocs']);
 
   // Partial build tasks
   grunt.registerTask('build-styles', ['sass']);
