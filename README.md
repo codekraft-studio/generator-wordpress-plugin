@@ -20,17 +20,19 @@ yo wordpress-plugin
 
 Once you are inside a existing project, generated with this tool you can also do:
 ```bash
-yo wordpress-plugin:metabox My Metabox
-yo wordpress-plugin:shortcode My Shortcode
-yo wordpress-plugin:widget My Widget
+yo wordpress-plugin:metabox MyMetabox
+yo wordpress-plugin:shortcode MyShortcode
+yo wordpress-plugin:widget MyWidget
 ```
+
+The generator will take care to update your plugin main class to include the newly generated classes.
 
 ## Generators
 Available generators:
   + __app__: Default generator (same as `yo wordpress-plugin`)
-  + __metabox__: For generating metaboxes in `include/metaboxes/`
-  + __shortcode__: For generating shortcodes in `include/shortcodes/`
-  + __widget__: For generating widgets in `include/widgets/`
+  + __metabox__: For generating metaboxes in `include/metaboxe/`
+  + __shortcode__: For generating shortcodes in `include/shortcode/`
+  + __widget__: For generating widgets in `include/widget/`
 
 
 ## Development

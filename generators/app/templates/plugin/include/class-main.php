@@ -7,6 +7,10 @@ class <%= className %> {
 
   private $settings;
 
+  private $widgets = array();
+
+  private $shortcodes = array();
+
   public function __construct() {
 
     // Plugin uninstall hook
@@ -27,6 +31,20 @@ class <%= className %> {
     add_action( 'admin_enqueue_scripts', array($this, 'plugin_enqueue_admin_scripts') );
     add_action( 'admin_init', array($this, 'plugin_register_settings') );
     add_action( 'admin_menu', array($this, 'plugin_add_settings_pages') );
+
+    // Register plugin widgets
+    add_action( 'widgets_init', function(){
+    	foreach ($this->widgets as $widgetName => $widgetPath) {
+    	  include_once( <%= definePrefix %>_INCLUDE_DIR . $widgetPath );
+        register_widget( $widgetName );
+    	}
+    });
+
+    // Init plugin shortcodes
+    foreach ($this->shortcodes as $className => $path) {
+      include_once( <%= definePrefix %>_INCLUDE_DIR . $path );
+      call_user_func( array( $className, '__construct' ) );
+    }
 
   }
 
