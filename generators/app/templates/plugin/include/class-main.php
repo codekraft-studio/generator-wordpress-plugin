@@ -7,6 +7,8 @@ class <%= className %> {
 
   private $settings;
 
+  private $metaboxes = array();
+
   private $widgets = array();
 
   private $shortcodes = array();
@@ -43,7 +45,13 @@ class <%= className %> {
     // Init plugin shortcodes
     foreach ($this->shortcodes as $className => $path) {
       include_once( <%= definePrefix %>_INCLUDE_DIR . $path );
-      call_user_func( array( $className, '__construct' ) );
+      new $className();
+    }
+
+    // Init plugin metaboxes
+    foreach ($this->metaboxes as $className => $path) {
+      include_once( <%= definePrefix %>_INCLUDE_DIR . $path );
+      new $className();
     }
 
   }

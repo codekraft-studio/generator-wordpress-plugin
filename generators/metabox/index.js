@@ -28,4 +28,74 @@ module.exports = class extends WPGenerator {
     super.writing()
   }
 
+  // Update the main class instance
+  end() {
+
+    try {
+
+      const ast = this.getMainClassFile();
+      const classObject = ast.findClass(this.props.className);
+
+      // Exit if the class object does not exist
+      if (!classObject) {
+        throw new Error(`The ${this.props.className} class does not exist.`);
+      }
+
+      // Get the metaboxes array
+      const metaboxes = classObject.getProperty('metaboxes');
+
+      // Exit if the widget property does not exist
+      if (!metaboxes) {
+        throw new Error('The $metaboxes array property was not found.');
+      }
+
+      const childClass = `${this.props.childClassName}_Metabox`;
+
+      const index = metaboxes.ast.value.items.findIndex(e => {
+        return e.key.value === childClass;
+      });
+
+      // Exit if entry is already in
+      if( index > -1 ) {
+        return;
+      }
+
+      // Add the new widget to the array
+      metaboxes.ast.value.items.push({
+        kind: 'entry',
+        key: {
+          kind: 'string',
+          value: childClass,
+          isDoubleQuote: false
+        },
+        value: {
+          kind: 'string',
+          value: `/metabox/class-${_.kebabCase(this.options.name)}.php`,
+          isDoubleQuote: false
+        }
+      });
+
+      // Write the file back
+      this.setMainClassFile(ast.toString());
+
+    } catch (err) {
+
+      // Print the error
+      this.log(chalk.bold.red(err.toString()));
+
+      // Print extra informations
+      this.log(
+        chalk.bold.yellow('You should manually add'),
+        `include_once(${this.props.definePrefix}_INCLUDE_DIR . '/metabox/class-${_.kebabCase(this.options.name)}.php');`,
+        chalk.bold.yellow('to your plugin main class.')
+      );
+
+    } finally {
+      // Call the parent end method
+      super.end();
+    }
+
+  }
+
+
 };
