@@ -36,6 +36,7 @@ module.exports = class WPGenerator extends Generator {
   // Write the plugin main class file content
   setMainClassFile(content) {
     const mainClass = this.destinationPath('include/class-main.php');
+    this.log('  ', chalk.green('update'), 'include/class-main.php file with new class')
     // Write the file back to disk
     fs.writeFileSync(mainClass, content, {
       encoding: 'utf8'
