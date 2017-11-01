@@ -29,8 +29,8 @@ module.exports = class extends WPGenerator {
     super.writing()
   }
 
-  // Update the main class instance
-  end() {
+  // Used internally to dinamic update the main class
+  conflicts() {
 
     try {
 
@@ -48,6 +48,18 @@ module.exports = class extends WPGenerator {
       // Exit if the widget property does not exist
       if (!shortcodes) {
         throw new Error('The $shortcodes array property was not found.');
+      }
+
+      const childClass = `${this.props.childClassName}_Shortcode`;
+
+      const index = shortcodes.ast.value.items.findIndex(e => {
+        return e.key.value === childClass;
+      });
+
+      // Exit if entry is already in
+      if( index > -1 ) {
+        this.log(chalk.cyan('identical'), `class name ${childClass} inside shortcodes array.`)
+        return;
       }
 
       // Add the new widget to the array
@@ -77,14 +89,15 @@ module.exports = class extends WPGenerator {
       this.log(
         chalk.bold.yellow('You should manually add'),
         `include_once(${this.props.definePrefix}_INCLUDE_DIR . '/shortcode/class-${_.kebabCase(this.options.name)}.php');`,
-        chalk.bold.yellow('to your plugin main class.')
+        chalk.bold.yellow('to your plugin main class file.')
       );
 
-    } finally {
-      // Call the parent end method
-      super.end();
     }
 
+  }
+
+  end() {
+    super.end();
   }
 
 };

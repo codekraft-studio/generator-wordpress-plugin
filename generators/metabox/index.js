@@ -112,7 +112,7 @@ module.exports = class extends WPGenerator {
       this.log(
         chalk.bold.yellow('You should manually add'),
         `include_once(${this.props.definePrefix}_INCLUDE_DIR . '/metabox/class-${_.kebabCase(this.options.name)}.php');`,
-        chalk.bold.yellow('to your plugin main class.')
+        chalk.bold.yellow('to your plugin main class file.')
       );
 
     }
