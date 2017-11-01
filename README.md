@@ -1,6 +1,9 @@
-# generator-wordpress-plugin 
+![banner](banner.jpg)
 
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url] [![Slack Chat](https://img.shields.io/badge/wordpress_slack-@codekraft--studio-blue.svg?style=flat)](https://wordpress.slack.com)
+
+# generator-wordpress-plugin
+
 > The best way to start creating your WordPress plugin projects.
 
 ## Installation
@@ -37,7 +40,7 @@ Available generators:
 
 ## Development
 
-Until the module it's not yet available as a global npm module. A global module may be created and symlinked to a local one, using npm. 
+Until the module it's not yet available as a global npm module. A global module may be created and symlinked to a local one, using npm.
 
 Move inside the project folder and type:
 
