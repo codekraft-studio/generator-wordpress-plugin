@@ -7,6 +7,10 @@ const WPGenerator = require('../../common/generator.js');
 
 module.exports = class extends WPGenerator {
 
+  constructor(args, opts) {
+    super(args, opts);
+  }
+
   prompting() {
     const prompts = [{
       type: 'input',
