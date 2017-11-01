@@ -28,8 +28,8 @@ class <%= childClassName %>_Metabox {
       __( '<%= title %>', '<%= projectName %>' ),
       array( $this, 'render_meta_box' ),
       $post_type,
-      'advanced',
-      'default'
+      '<%= context %>',
+      '<%= priority %>'
     );
 
   }
