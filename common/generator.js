@@ -45,17 +45,18 @@ module.exports = class WPGenerator extends Generator {
   defaults() {
     let config = this.config.getAll();
     if( _.isEmpty(config) ) {
-      this.env.error("You must run this command inside a existing project.");
+      this.env.error("You must run this command inside an existing project.");
     }
     // Get the global project variables
     this.props = _.assignIn(config, this.props);
   }
 
+  // Write subgenerator template to include folder
   writing() {
-    // Get filename from options
+    this.log('\nNow I start to create the files:\n');
+    // Name is an option that has been set inside the subgenerator class
+    // in the configuring method that is called before writing
     const filename = _.kebabCase(this.options.name);
-
-    // Render and write submodule template
     this.fs.copyTpl(
       this.templatePath('template.ejs'),
       this.destinationPath(`include/${this.name}/class-${filename}.php`),
@@ -65,7 +66,7 @@ module.exports = class WPGenerator extends Generator {
 
   // Print the end message
   end() {
-    this.log( chalk.bold.yellow('The generator has finished his job.') );
+    this.log( '\nAll the job', chalk.bold.yellow('was done'), 'see ya next.\n' );
   }
 
 };
