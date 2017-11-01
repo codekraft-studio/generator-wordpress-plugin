@@ -6,13 +6,23 @@ const writer = require('php-writer');
 const chalk = require('chalk');
 const Generator = require('yeoman-generator');
 
+const writerOptions = {
+  writer: {
+    indent: false,
+    shortArray: false,
+    bracketsNewLine: false,
+    collapseEmptyLines: false
+  }
+};
+
 module.exports = class WPGenerator extends Generator {
 
   constructor(args, opts) {
     super(args, opts);
     // Init a empty props object
     this.props = {};
-    // Set the name argument as required
+    // All the submodules has a required name property
+    // that identify the class name and is the seed for building other informations
     this.argument('name', {type: String, required: true});
   }
 
@@ -20,7 +30,7 @@ module.exports = class WPGenerator extends Generator {
   getMainClassFile() {
     const mainClass = this.destinationPath('include/class-main.php');
     const content = fs.readFileSync( mainClass, 'utf8' );
-    return new writer(content);
+    return new writer(content, writerOptions);
   }
 
   // Write the plugin main class file content

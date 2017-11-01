@@ -468,6 +468,14 @@ chalk@^2.0.0, chalk@^2.0.1, chalk@^2.1.0:
     escape-string-regexp "^1.0.5"
     supports-color "^4.0.0"
 
+chalk@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.3.0.tgz#b5ea48efc9c1793dccc9b4767c93914d3f2d52ba"
+  dependencies:
+    ansi-styles "^3.1.0"
+    escape-string-regexp "^1.0.5"
+    supports-color "^4.0.0"
+
 ci-info@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-1.1.1.tgz#47b44df118c48d2597b56d342e7e25791060171a"
@@ -813,9 +821,9 @@ escodegen@^1.6.1:
   optionalDependencies:
     source-map "~0.5.6"
 
-eslint-config-xo-space@^0.16.0:
-  version "0.16.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-xo-space/-/eslint-config-xo-space-0.16.0.tgz#5241a8adfaafec53a6f2236da5f9d6a41c5ff84d"
+eslint-config-xo-space@^0.17.0:
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-xo-space/-/eslint-config-xo-space-0.17.0.tgz#b712feb4f4547e28001900cbeecc9c2f2f456af2"
   dependencies:
     eslint-config-xo "^0.18.0"
 
@@ -830,9 +838,9 @@ eslint-scope@^3.7.1:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint@^4.8.0:
-  version "4.8.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.8.0.tgz#229ef0e354e0e61d837c7a80fdfba825e199815e"
+eslint@^4.10.0:
+  version "4.10.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.10.0.tgz#f25d0d7955c81968c2309aa5c9a229e045176bb7"
   dependencies:
     ajv "^5.2.0"
     babel-code-frame "^6.22.0"
@@ -2558,6 +2566,21 @@ performance-now@^0.2.0:
 performance-now@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
+
+php-parser@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/php-parser/-/php-parser-2.1.0.tgz#6ab8be21ca6c25af1e2f46b782bcacfdfd11ff55"
+
+php-unparser@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/php-unparser/-/php-unparser-0.2.3.tgz#72435d88d8ff241efe8a0f40c70766264bc6da4b"
+
+php-writer@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/php-writer/-/php-writer-2.0.0.tgz#d128a48851620c9fc10059b2e6cf6be7d502ae9d"
+  dependencies:
+    php-parser "^2.1.0"
+    php-unparser "^0.2.3"
 
 pify@^2.0.0, pify@^2.3.0:
   version "2.3.0"

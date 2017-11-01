@@ -23,15 +23,15 @@
     "yeoman-test": "^1.7.0",
     "yeoman-assert": "^3.1.0",
     "coveralls": "^3.0.0",
-    "eslint": "^4.8.0",
-    "eslint-config-xo-space": "^0.16.0",
+    "eslint": "^4.10.0",
+    "eslint-config-xo-space": "^0.17.0",
     "jest": "^21.2.1",
     "jest-cli": "^21.2.1"
   },
   "dependencies": {
-    "chalk": "^2.1.0",
+    "chalk": "^2.3.0",
     "lodash": "^4.17.4",
-    "php-writer": "^1.1.0",
+    "php-writer": "^2.0.0",
     "yeoman-generator": "^2.0.1",
     "yosay": "^2.0.1"
   },
