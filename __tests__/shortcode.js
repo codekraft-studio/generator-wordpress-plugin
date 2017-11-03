@@ -16,7 +16,11 @@ describe('generator-wordpress-plugin:shortcode', () => {
       };
 
       let generator = helpers.run(path.join(__dirname, '../generators/shortcode'))
-        .withArguments(['Test']);
+        .withArguments(['Test'])
+        .withOptions({
+          'filter': true,
+          'enclosing': true
+        });
 
       generator.on('ready', (generator) => {
         generator.config.set(vars);
@@ -32,6 +36,14 @@ describe('generator-wordpress-plugin:shortcode', () => {
 
     it('should have the correct class name', () => {
       assert.fileContent('include/shortcode/class-test.php', 'class Test_Shortcode');
+    });
+
+    it('enable the shortcode attributes filter', () => {
+      assert.fileContent('include/shortcode/class-test.php', "), $atts, 'test' );");
+    });
+
+    it('has the content argument for encapsulated shortcodes', () => {
+      assert.fileContent('include/shortcode/class-test.php', "($atts, $content = null)");
     });
 
   });
