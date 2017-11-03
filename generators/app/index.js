@@ -48,10 +48,11 @@ module.exports = class extends Generator {
         }
       },
       {
-        type: 'text',
+        type: 'list',
         name: 'projectManager',
-        message: 'Do you want to use grunt or gulp as your build system?',
+        message: 'What do you want to use a project manager?',
         default: 'grunt',
+        choices: ['grunt', 'gulp'],
         validate: utils.validateProjectManager
       },
       {
