@@ -27,7 +27,7 @@ class <%= childClassName %>_Metabox {
       '<%= id %>',
       __( '<%= title %>', '<%= projectName %>' ),
       array( $this, 'render_meta_box' ),
-      $post_type,
+      '<%= screen %>',
       '<%= context %>',
       '<%= priority %>'
     );
