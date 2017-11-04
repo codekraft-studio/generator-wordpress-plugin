@@ -3,7 +3,7 @@ const path = require('path');
 const assert = require('yeoman-assert');
 const utils = require('../common/utils');
 
-describe('generator-wordpress-plugin:app', () => {
+describe('SubGenerator:app', () => {
 
   it('validate a required input', () => {
     assert.equal( utils.validateRequired('test-plugin'), true );

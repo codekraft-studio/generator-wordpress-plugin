@@ -5,7 +5,7 @@ const assert = require('yeoman-assert');
 const helpers = require('yeoman-test');
 const fs = require('fs');
 
-describe('generator-wordpress-plugin:metabox', () => {
+describe('SubGenerator:metabox', () => {
 
   describe('with a existing project', () => {
 

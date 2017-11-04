@@ -10,7 +10,7 @@ const prompts = {
   projectVersion: '1.0.0'
 };
 
-describe('generator-wordpress-plugin:app', () => {
+describe('SubGenerator:app', () => {
   beforeAll(() => {
     return helpers.run(path.join(__dirname, '../generators/app'))
       .withPrompts(prompts)

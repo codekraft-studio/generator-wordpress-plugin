@@ -3,7 +3,7 @@ var path = require('path');
 var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
 
-describe('generator-wordpress-plugin:shortcode', () => {
+describe('SubGenerator:shortcode', () => {
   describe('with a existing project', () => {
 
     beforeAll((done) => {
