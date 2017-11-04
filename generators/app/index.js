@@ -18,7 +18,7 @@ module.exports = class extends Generator {
   prompting() {
     // Have Yeoman greet the user.
     this.log(yosay(
-      'Welcome to the first-rate ' + chalk.green('wordpress-plugin') + ' generator!'
+      'Welcome to ' + chalk.bold.red('wordpress-plugin') + ' generator!'
     ));
 
     // Main project setup prompt questions
@@ -125,12 +125,13 @@ module.exports = class extends Generator {
       this.props
     );
 
-    // Copy the gitignore file (must specify the output filename)
+    // Copy all dotfiles
     this.fs.copy(
-      this.templatePath('plugin/.gitignore'),
-      this.destinationPath('.gitignore')
+      this.templatePath('plugin/.*'),
+      this.destinationPath()
     );
 
+    // Render and copy main plugin file
     this.fs.copyTpl(
       this.templatePath('plugin/_plugin.php'),
       this.destinationPath(this.props.projectName + '.php'),
