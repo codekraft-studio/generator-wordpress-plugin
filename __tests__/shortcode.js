@@ -22,7 +22,7 @@ describe('SubGenerator:shortcode', () => {
   beforeAll((done) => {
     // Run the generator
     generator = helpers.run(path.join(__dirname, `../generators/${subGenerator}`))
-      .withArguments(['Test'])
+      .withArguments([nameInput])
       .withOptions({
         'filter': true,
         'enclosing': true
@@ -47,10 +47,10 @@ describe('SubGenerator:shortcode', () => {
   });
 
   it('enable the shortcode attributes filter', () => {
-    assert.fileContent('include/shortcode/class-test.php', "), $atts, 'test' );");
+    assert.fileContent(`include/${subGenerator}/class-test.php`, "), $atts, 'test' );");
   });
 
   it('has the content argument for encapsulated shortcodes', () => {
-    assert.fileContent('include/shortcode/class-test.php', "($atts, $content = null)");
+    assert.fileContent(`include/${subGenerator}/class-test.php`, "($atts, $content = null)");
   });
 });

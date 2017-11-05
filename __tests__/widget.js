@@ -23,7 +23,7 @@ describe('SubGenerator:widget', () => {
     // Run the generator
     generator = helpers.run(path.join(__dirname, `../generators/${subGenerator}`))
       .withPrompts({ description: 'The widget test.' })
-      .withArguments(['Test']);
+      .withArguments([nameInput]);
 
     // Use mock values
     generator.on('ready', (generator) => {

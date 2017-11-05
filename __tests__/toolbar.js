@@ -44,7 +44,7 @@ describe('SubGenerator:toolbar', () => {
   });
 
   it('set a protected property to hold main toolbar arguments', () => {
-    assert.fileContent('include/toolbar/class-test.php', 'protected $toolbar');
+    assert.fileContent(`include/${subGenerator}/class-test.php`, 'protected $toolbar');
   });
 
   it('has child menus enabled by default', () => {
@@ -52,11 +52,11 @@ describe('SubGenerator:toolbar', () => {
   });
 
   it('set a protected property to hold submenus arguments', () => {
-    assert.fileContent('include/toolbar/class-test.php', 'protected $toolbarChildren');
+    assert.fileContent(`include/${subGenerator}/class-test.php`, 'protected $toolbarChildren');
   });
 
   it('create submenus array as per the childNumber property value', () => {
-    assert.fileContent('include/toolbar/class-test.php', "'id' => 'test-submenu-0'");
-    assert.fileContent('include/toolbar/class-test.php', "'parent' => 'test'");
+    assert.fileContent(`include/${subGenerator}/class-test.php`, "'id' => 'test-submenu-0'");
+    assert.fileContent(`include/${subGenerator}/class-test.php`, "'parent' => 'test'");
   });
 });
