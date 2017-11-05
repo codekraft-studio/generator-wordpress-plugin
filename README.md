@@ -30,13 +30,82 @@ yo wordpress-plugin:widget MyWidget
 
 The generator will take care to update your plugin main class to include the newly generated classes.
 
-## Generators
-Available generators:
-  + __app__: Default generator (same as `yo wordpress-plugin`)
-  + __metabox__: For generating metaboxes in `include/metaboxe/`
-  + __shortcode__: For generating shortcodes in `include/shortcode/`
-  + __widget__: For generating widgets in `include/widget/`
+---
 
+## Generators
+
+### app
+This is the default generator, once is called it will ask few questions and setup a working project for your WordPress Plugin. Depending on your answers the command can generate a __grunt/gulp__ based project with __sass__, __linters__ and a lot of features.
+
+#### questions:
+* __projectName__: The unique name slug you want to use for this project. Default: `<folder-name>`
+* __projectTitle__: The title for your WordPress Plugin project. Default: `<Folder Name>`
+* __projectDescription__: The description of your project. Default: `This is the <projectTitle> description.`
+* __projectManager__: The build system you want to use for the project. Default: `grunt`
+* __projectAuthor__: The name of the project author. Default: `<your-name>`
+* __projectLicense__: The license under the project is developed and released. Default: `ISC`
+
+
+## Subgenerators
+
+### metabox [name]
+
+This command will create a metabox class inside the `include/metabox/`, than it will update the __$metaboxes__ property on the main plugin class.
+The metabox template is based on [WordPress Codex Metabox](https://developer.wordpress.org/reference/functions/add_meta_box/) rules, for more information about the code please refer to it.
+
+#### example: `yo wordpress-plugin:metabox Test`
+
+
+### shortcode [name]
+
+This command will create a shortcode class inside the `include/shortcode/`, than it will update the __$shortcodes__ property on the main plugin class.
+The shortcode template is based on [WordPress Codex Shortcode](https://codex.wordpress.org/Shortcode_API) rules, for more information about the code please refer to it.
+
+#### example: `yo wordpress-plugin:shortcode Test`
+
+#### options:
+
+| option    | default | description |
+|-----------|---------|-------------|
+| filter    | `false` | Allow the shortcode attributes to be filtered |
+| enclosing | `false` | Create the shortcode as enclosing tag (enable content) |
+
+
+### widget [name]
+
+This command will create a widget class inside the `include/widget/`, than it will update the __$widgets__ property on the main plugin class.
+The widget template is based on [WordPress Codex Widget](https://codex.wordpress.org/Widgets_API) rules, for more information about the code please refer to it.
+
+#### example: `yo wordpress-plugin:widget Test`
+
+#### questions:
+  * __description__: The description for the widget. Default: `The [name] widget description.`
+
+
+### dashwidget [name]
+
+This command makes very simple to add new widgets to the [administration dashboard](https://codex.wordpress.org/Dashboard_SubPanel). Once is run it will create a dashwidget class inside the `include/dashwidget/`, than it will update the __$dashwidgets__ property on the main plugin class.
+The dashwidget template is based on [WordPress Codex Dashboard Widgets](https://codex.wordpress.org/Dashboard_Widgets_API) rules, for more information about the code please refer to it.
+
+#### example: `yo wordpress-plugin:dashwidget Test`
+
+
+### toolbar [name]
+
+The Toolbar is an area of the screen just above the site that lists useful admininstration screen links such as add a new post or edit your profile.
+The Toolbar contains links to information about WordPress, as well as quick-links to create new posts, pages and links, add new users, review comments, and alerts to available updates to plugins and themes on your site.
+
+This command will create a toolbar class inside the `include/toolbar/`, than it will update the __$toolbars__ property on the main plugin class.
+The toolbar template is based on [WordPress Codex Toolbar](https://codex.wordpress.org/Toolbar) rules, for more information about the code please refer to it.
+
+#### example: `yo wordpress-plugin:toolbar Test`
+
+#### questions:
+  * __title__: The title of the toolbar, that will be shown in the bar. Default: `[name] Toolbar`
+  * __hasChild__: A boolean that decide if the toolbar is enabled for submenus. Default: `true`
+  * __childNumber__: How many empty child submenu to create, only if __hasChild__ is enabled. Default: `1`
+
+---
 
 ## Development
 
