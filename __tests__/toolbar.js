@@ -22,7 +22,7 @@ describe('SubGenerator:toolbar', () => {
   let generator;
   beforeAll((done) => {
     // Run the generator
-    generator = helpers.run(path.join(__dirname, '../generators/toolbar'))
+    generator = helpers.run(path.join(__dirname, `../generators/${subGenerator}`))
       .withArguments([nameInput]);
 
     // Use mock values

@@ -21,7 +21,7 @@ describe('SubGenerator:widget', () => {
   let generator;
   beforeAll((done) => {
     // Run the generator
-    generator = helpers.run(path.join(__dirname, '../generators/widget'))
+    generator = helpers.run(path.join(__dirname, `../generators/${subGenerator}`))
       .withPrompts({ description: 'The widget test.' })
       .withArguments(['Test']);
 

@@ -23,7 +23,7 @@ describe('SubGenerator:metabox', () => {
   let generator;
   beforeAll((done) => {
     // Run the generator
-    generator = helpers.run(path.join(__dirname, '../generators/metabox'))
+    generator = helpers.run(path.join(__dirname, `../generators/${subGenerator}`))
       .withArguments(['Test']);
 
     // Use mock values
