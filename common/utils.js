@@ -30,5 +30,8 @@ module.exports = {
       return 'You should enter a valid version.';
     }
     return true;
+  },
+  validateNumber(input) {
+    return isNaN(input) ? 'You must enter a valid number.' : true;
   }
 };

@@ -28,4 +28,10 @@ describe('SubGenerator:app', () => {
     assert.equal( utils.validateVersion('t.051-84.31'), 'You should enter a valid version.' );
   });
 
+  it('validate a input as a number', () => {
+    assert.equal( utils.validateNumber(12), true );
+    assert.equal( utils.validateNumber('12'), true );
+    assert.equal( utils.validateNumber('not-number'), 'You must enter a valid number.' );
+  });
+
 });

@@ -3,7 +3,12 @@
 const _ = require('lodash');
 const path = require('path');
 const chalk = require('chalk');
+
+// Custom extended generator
 const WPGenerator = require('../../common/generator.js');
+
+// Common functions
+const utils = require('../../common/utils');
 
 module.exports = class extends WPGenerator {
 
@@ -29,9 +34,7 @@ module.exports = class extends WPGenerator {
       message: 'How many submenus do you want to create?',
       default: 1,
       filter: (value) => parseInt(value),
-      validate: (value) => {
-        return isNaN(value) ? 'You must enter a valid number' : true;
-      },
+      validate: utils.validateRequired,
       when: (answers) => answers.hasChild
     }];
 
