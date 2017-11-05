@@ -54,7 +54,7 @@ module.exports = class WPGenerator extends Generator {
 
   // Write subgenerator template to include folder
   writing() {
-    this.log('\nNow I start to create the files:\n');
+    this.log('\nNow I\'ll start to create the files:\n');
     // Name is an option that has been set inside the subgenerator class
     // in the configuring method that is called before writing
     const filename = _.kebabCase(this.options.name);
@@ -62,6 +62,16 @@ module.exports = class WPGenerator extends Generator {
       this.templatePath('template.ejs'),
       this.destinationPath(`include/${this.name}/class-${filename}.php`),
       this.props
+    );
+  }
+
+  // Print extra informations about the writing failure
+  // and the manual updates to perform to main class file
+  warningMessage() {
+    this.log(
+      chalk.bold.yellow('You should manually add'),
+      `include_once(${this.props.definePrefix}_INCLUDE_DIR . '/${this.name}/class-${_.kebabCase(this.options.name)}.php');`,
+      chalk.bold.yellow('to your plugin main class file.')
     );
   }
 
