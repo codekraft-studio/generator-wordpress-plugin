@@ -101,7 +101,7 @@ module.exports = class extends WPGenerator {
       // Print extra informations
       this.log(
         chalk.bold.yellow('You should manually add'),
-        `include_once(${this.props.definePrefix}_INCLUDE_DIR . '/widgets/class-${_.kebabCase(this.options.name)}.php');`,
+        `include_once(${this.props.definePrefix}_INCLUDE_DIR . '/widget/class-${_.kebabCase(this.options.name)}.php');`,
         chalk.bold.yellow('to your plugin main class file.')
       );
 
