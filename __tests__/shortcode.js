@@ -1,51 +1,56 @@
 'use strict';
-var path = require('path');
-var assert = require('yeoman-assert');
-var helpers = require('yeoman-test');
+
+const _ = require('lodash');
+const path = require('path');
+const assert = require('yeoman-assert');
+const helpers = require('yeoman-test');
+
+const subGenerator = path.basename(__filename, '.js');
+
+const nameInput = 'Test';
+
+const vars = {
+  "projectName": "my-plugin",
+  "projectVersion": "0.0.1",
+  "projectAuthor": "codekraft-studio",
+  "projectVersion": "0.0.1",
+  "projectLicense": "Apache-2.0"
+};
 
 describe('SubGenerator:shortcode', () => {
-  describe('with a existing project', () => {
-
-    beforeAll((done) => {
-      let vars = {
-        "projectName": "my-plugin",
-        "projectVersion": "0.0.1",
-        "projectAuthor": "codekraft-studio",
-        "projectVersion": "0.0.1",
-        "projectLicense": "Apache-2.0"
-      };
-
-      let generator = helpers.run(path.join(__dirname, '../generators/shortcode'))
-        .withArguments(['Test'])
-        .withOptions({
-          'filter': true,
-          'enclosing': true
-        });
-
-      generator.on('ready', (generator) => {
-        generator.config.set(vars);
-        generator.config.save();
+  let generator;
+  beforeAll((done) => {
+    // Run the generator
+    generator = helpers.run(path.join(__dirname, `../generators/${subGenerator}`))
+      .withArguments(['Test'])
+      .withOptions({
+        'filter': true,
+        'enclosing': true
       });
 
-      generator.on('end', done);
-    });
-
-    it('creates files', () => {
-      assert.file(['include/shortcode/class-test.php']);
-    });
-
-    it('should have the correct class name', () => {
-      assert.fileContent('include/shortcode/class-test.php', 'class Test_Shortcode');
-    });
-
-    it('enable the shortcode attributes filter', () => {
-      assert.fileContent('include/shortcode/class-test.php', "), $atts, 'test' );");
-    });
-
-    it('has the content argument for encapsulated shortcodes', () => {
-      assert.fileContent('include/shortcode/class-test.php', "($atts, $content = null)");
-    });
-
+    // Use mock values
+    generator.on('ready', (generator) => {
+      generator.config.set(vars);
+      generator.config.save();
+    }).on('end', done);
   });
 
+  // Default stuff that happen always
+  describe('default subgenerator tests', () => {
+    it('create subgenerator class file in directory named like subgenerator', () => {
+      assert.file([`include/${subGenerator}/class-test.php`]);
+    });
+
+    it('set the class name of the file as input plus subgenerator name', () => {
+      assert.fileContent(`include/${subGenerator}/class-test.php`, `class ${nameInput}_${_.capitalize(subGenerator)}`);
+    });
+  });
+
+  it('enable the shortcode attributes filter', () => {
+    assert.fileContent('include/shortcode/class-test.php', "), $atts, 'test' );");
+  });
+
+  it('has the content argument for encapsulated shortcodes', () => {
+    assert.fileContent('include/shortcode/class-test.php', "($atts, $content = null)");
+  });
 });
