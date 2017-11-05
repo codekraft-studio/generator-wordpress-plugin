@@ -13,6 +13,8 @@ class <%= className %> {
 
   private $shortcodes = array();
 
+  private $toolbars = array();
+
   public function __construct() {
 
     // Plugin uninstall hook

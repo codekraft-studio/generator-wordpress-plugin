@@ -9,33 +9,18 @@ module.exports = class extends WPGenerator {
 
   constructor(args, opts) {
     super(args, opts);
-
-    this.option('enclosing', {
-      alias: 'e',
-      description: 'Create the shortcode as enclosing tag (enable content)',
-      type: Boolean,
-      default: false
-    });
-
-    this.option('filter', {
-      alias: 'f',
-      description: 'Allow the shortcode attributes to be filtered',
-      type: Boolean,
-      default: false
-    });
   }
 
   configuring() {
+    // Get the project defaults
     this.defaults();
+
+    // The subgenerator name
     this.name = path.basename(__dirname);
 
-    // Set command line options
-    this.props.filter = this.options.filter;
-    this.props.enclosing = this.options.enclosing;
-
     // Sub generator properties overrides
-    this.props.name = _.upperFirst(_.camelCase(this.options.name));
-    this.props.tag = _.kebabCase(this.options.name);
+    this.props.id = _.snakeCase(this.options.name);
+    this.props.title = _.startCase(this.options.name);
     this.props.childClassName = _.upperFirst(_.camelCase(this.options.name));
   }
 
@@ -57,37 +42,37 @@ module.exports = class extends WPGenerator {
         throw new Error(`The ${this.props.className} class does not exist.`);
       }
 
-      // Get the shortcodes array
-      const shortcodes = classObject.getProperty('shortcodes');
+      // Get the dashWidgets array
+      const dashWidgets = classObject.getProperty('dashWidgets');
 
-      // Exit if the widget property does not exist
-      if (!shortcodes) {
-        throw new Error('The $shortcodes array property was not found.');
+      // Exit if the dashwidget property does not exist
+      if (!dashWidgets) {
+        throw new Error('The $dashWidgets array property was not found.');
       }
 
-      const childClass = `${this.props.childClassName}_Shortcode`;
+      const childClass = `${this.props.childClassName}_DashWidget`;
 
-      const index = shortcodes.ast.value.items.findIndex(e => {
+      const index = dashWidgets.ast.value.items.findIndex(e => {
         return e.key.value === childClass;
       });
 
       // Exit if entry is already in
       if( index > -1 ) {
-        this.log(chalk.cyan('identical'), `class name ${childClass} inside shortcodes array.`)
+        this.log(chalk.cyan('identical'), `class name ${childClass} inside dashWidgets array.`)
         return;
       }
 
-      // Add the new widget to the array
-      shortcodes.ast.value.items.push({
+      // Add the new dashwidget to the array
+      dashWidgets.ast.value.items.push({
         kind: 'entry',
         key: {
           kind: 'string',
-          value: `${this.props.childClassName}_Shortcode`,
+          value: `${this.props.childClassName}_DashWidget`,
           isDoubleQuote: false
         },
         value: {
           kind: 'string',
-          value: `/shortcode/class-${_.kebabCase(this.options.name)}.php`,
+          value: `/dashwidget/class-${_.kebabCase(this.options.name)}.php`,
           isDoubleQuote: false
         }
       });

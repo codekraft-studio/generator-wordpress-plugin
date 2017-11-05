@@ -104,17 +104,8 @@ module.exports = class extends WPGenerator {
       this.setMainClassFile(ast.toString());
 
     } catch (err) {
-
-      // Print the error
       this.log(chalk.bold.red(err.toString()));
-
-      // Print extra informations
-      this.log(
-        chalk.bold.yellow('You should manually add'),
-        `include_once(${this.props.definePrefix}_INCLUDE_DIR . '/metabox/class-${_.kebabCase(this.options.name)}.php');`,
-        chalk.bold.yellow('to your plugin main class file.')
-      );
-
+      super.warningMessage();
     }
 
   }
