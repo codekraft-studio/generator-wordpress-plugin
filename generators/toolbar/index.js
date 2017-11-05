@@ -64,6 +64,58 @@ module.exports = class extends WPGenerator {
   // Used internally to dinamic update the main class
   conflicts() {
 
+    try {
+
+      const ast = this.getMainClassFile();
+      const classObject = ast.findClass(this.props.className);
+
+      // Exit if the class object does not exist
+      if (!classObject) {
+        throw new Error(`The ${this.props.className} class does not exist.`);
+      }
+
+      // Get the toolbars array
+      const toolbars = classObject.getProperty('toolbars');
+
+      // Exit if the widget property does not exist
+      if (!toolbars) {
+        throw new Error('The $toolbars array property was not found.');
+      }
+
+      const childClass = `${this.props.childClassName}_Toolbar`;
+
+      const index = toolbars.ast.value.items.findIndex(e => {
+        return e.key.value === childClass;
+      });
+
+      // Exit if entry is already in
+      if( index > -1 ) {
+        this.log(chalk.cyan('identical'), `class name ${childClass} inside toolbars array.`)
+        return;
+      }
+
+      // Add the new widget to the array
+      toolbars.ast.value.items.push({
+        kind: 'entry',
+        key: {
+          kind: 'string',
+          value: `${this.props.childClassName}_Toolbar`,
+          isDoubleQuote: false
+        },
+        value: {
+          kind: 'string',
+          value: `/${this.name}/class-${_.kebabCase(this.options.name)}.php`,
+          isDoubleQuote: false
+        }
+      });
+
+      // Write the file back
+      this.setMainClassFile(ast.toString());
+
+    } catch (err) {
+      this.log(chalk.bold.red(err.toString()));
+      super.warningMessage();
+    }
 
   }
 
