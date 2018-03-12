@@ -27,7 +27,7 @@ class <%= name %>_Shortcode {
    * @param {Array} $atts An associative array of attributes, or an empty string if no attributes are given
    * @param {String} [$content=null] The enclosed content (if the shortcode is used in its enclosing form)
    */
-  private function do_shortcode($atts<%- enclosing ? (', ' + '$content = null') : '' %>) {
+  public function do_shortcode($atts<%- enclosing ? (', ' + '$content = null') : '' %>) {
 
     // Get the shortcode options
     $a = shortcode_atts( array(
