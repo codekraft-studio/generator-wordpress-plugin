@@ -10,6 +10,9 @@ module.exports = class extends WPGenerator {
   constructor(args, opts) {
     super(args, opts);
 
+    // The subgenerator name
+    this.name = path.basename(__dirname);
+
     this.option('enclosing', {
       alias: 'e',
       description: 'Create the shortcode as enclosing tag (enable content)',
@@ -31,9 +34,6 @@ module.exports = class extends WPGenerator {
   }
 
   configuring() {
-
-    this.name = path.basename(__dirname);
-
     // Set command line options
     this.props.filter = this.options.filter;
     this.props.enclosing = this.options.enclosing;

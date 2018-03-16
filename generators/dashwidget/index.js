@@ -9,6 +9,9 @@ module.exports = class extends WPGenerator {
 
   constructor(args, opts) {
     super(args, opts);
+
+    // The subgenerator name
+    this.name = path.basename(__dirname);
   }
 
   // Try to get parent project config or exit
@@ -16,12 +19,8 @@ module.exports = class extends WPGenerator {
     this.defaults();
   }
 
+  // Sub generator properties overrides
   configuring() {
-
-    // The subgenerator name
-    this.name = path.basename(__dirname);
-
-    // Sub generator properties overrides
     this.props.id = _.snakeCase(this.options.name);
     this.props.title = _.startCase(this.options.name);
     this.props.childClassName = _.upperFirst(_.camelCase(this.options.name));
