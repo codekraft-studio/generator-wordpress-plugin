@@ -1,0 +1,9 @@
+{
+  "input": "Test",
+  "config": {
+    "projectName": "my-plugin",
+    "projectVersion": "0.0.1",
+    "projectAuthor": "codekraft-studio",
+    "projectLicense": "Apache-2.0"
+  }
+}

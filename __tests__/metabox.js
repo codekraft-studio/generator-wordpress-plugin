@@ -8,27 +8,18 @@ const fs = require('fs');
 
 const subGenerator = path.basename(__filename, '.js');
 
-const nameInput = 'Test';
-
-const vars = {
-  "projectName": "my-plugin",
-  "projectVersion": "0.0.1",
-  "projectAuthor": "codekraft-studio",
-  "projectVersion": "0.0.1",
-  "projectLicense": "Apache-2.0"
-};
-
+const mock = require('./mock.json');
 
 describe('SubGenerator:metabox', () => {
   let generator;
   beforeAll((done) => {
     // Run the generator
     generator = helpers.run(path.join(__dirname, `../generators/${subGenerator}`))
-      .withArguments([nameInput]);
+      .withArguments([mock.input]);
 
     // Use mock values
     generator.on('ready', (generator) => {
-      generator.config.set(vars);
+      generator.config.set(mock.config);
       generator.config.save();
     }).on('end', done);
   });
@@ -40,7 +31,7 @@ describe('SubGenerator:metabox', () => {
     });
 
     it('set the class name of the file as input plus subgenerator name', () => {
-      assert.fileContent(`include/${subGenerator}/class-test.php`, `class ${nameInput}_${_.capitalize(subGenerator)}`);
+      assert.fileContent(`include/${subGenerator}/class-test.php`, `class ${mock.input}_${_.capitalize(subGenerator)}`);
     });
   });
 });
