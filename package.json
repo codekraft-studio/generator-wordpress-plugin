@@ -12,7 +12,7 @@
     "generators",
     "common"
   ],
-  "main": "generators/index.js",
+  "main": "generators/app/index.js",
   "keywords": [
     "wordpress",
     "plugin",
@@ -23,16 +23,15 @@
     "yeoman-test": "^1.7.0",
     "yeoman-assert": "^3.1.0",
     "coveralls": "^3.0.0",
-    "eslint": "^4.10.0",
-    "eslint-config-xo-space": "^0.17.0",
-    "jest": "^21.2.1",
-    "jest-cli": "^21.2.1"
+    "eslint": "^4.19.0",
+    "eslint-config-xo-space": "^0.18.0",
+    "jest": "^22.4.2"
   },
   "dependencies": {
-    "chalk": "^2.3.0",
-    "lodash": "^4.17.4",
-    "php-writer": "^2.0.0",
-    "yeoman-generator": "^2.0.1",
+    "chalk": "^2.3.2",
+    "lodash": "^4.17.5",
+    "php-writer": "^3.0.0",
+    "yeoman-generator": "^2.0.3",
     "yosay": "^2.0.1"
   },
   "jest": {
