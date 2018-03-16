@@ -100,7 +100,7 @@ class <%= className %> {
       'administrator', // Menu page capabilities
       '<%= projectName %>-settings', // Page ID
       array($this, 'plugin_settings_page'), // Callback
-      'none', // No icon
+      'dashicons-admin-generic',
       null
     );
 
