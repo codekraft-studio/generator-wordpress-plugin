@@ -23,10 +23,13 @@ module.exports = class extends WPGenerator {
       type: Boolean,
       default: false
     });
+
+    // Get the project defaults
+    this.defaults();
   }
 
   configuring() {
-    this.defaults();
+
     this.name = path.basename(__dirname);
 
     // Set command line options

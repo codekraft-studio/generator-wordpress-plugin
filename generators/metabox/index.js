@@ -9,6 +9,9 @@ module.exports = class extends WPGenerator {
 
   constructor(args, opts) {
     super(args, opts);
+
+    // Get the project defaults
+    this.defaults();
   }
 
   // Get specific submodule details
@@ -37,8 +40,6 @@ module.exports = class extends WPGenerator {
 
   // Set specific properties
   configuring() {
-    // Get the project defaults
-    this.defaults();
     // The subgenerator name
     this.name = path.basename(__dirname);
     // Sub generator properties overrides
