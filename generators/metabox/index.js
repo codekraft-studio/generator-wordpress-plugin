@@ -9,8 +9,10 @@ module.exports = class extends WPGenerator {
 
   constructor(args, opts) {
     super(args, opts);
+  }
 
-    // Get the project defaults
+  // Try to get parent project config or exit
+  initializing() {
     this.defaults();
   }
 

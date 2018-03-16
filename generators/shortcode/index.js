@@ -23,8 +23,10 @@ module.exports = class extends WPGenerator {
       type: Boolean,
       default: false
     });
+  }
 
-    // Get the project defaults
+  // Try to get parent project config or exit
+  initializing() {
     this.defaults();
   }
 
