@@ -23,14 +23,11 @@ describe('SubGenerator:widget', () => {
     }).on('end', done);
   });
 
-  // Default stuff that happen always
-  describe('default subgenerator tests', () => {
-    it('create subgenerator class file in directory named like subgenerator', () => {
-      assert.file([`include/${subGenerator}/class-test.php`]);
-    });
+  it('create class file in directory named like subgenerator', () => {
+    assert.file([`include/${subGenerator}/class-test.php`]);
+  });
 
-    it('set the class name of the file as input plus subgenerator name', () => {
-      assert.fileContent(`include/${subGenerator}/class-test.php`, `class ${mock.input}_${_.capitalize(subGenerator)}`);
-    });
+  it('set the class name of the file as input plus subgenerator name', () => {
+    assert.fileContent(`include/${subGenerator}/class-test.php`, `class ${mock.input}_${_.capitalize(subGenerator)}`);
   });
 });
