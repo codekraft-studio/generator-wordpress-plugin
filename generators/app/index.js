@@ -14,6 +14,13 @@ const utils = require('../../common/utils');
 // it initiate the project creating also a configuration file
 // for later submodules generation -- all the submodules requires this file
 module.exports = class extends Generator {
+  constructor(args, opts) {
+    super(args, opts);
+
+    // Optionally take first argument as project name
+    this.argument('appname', { type: String, required: false });
+  }
+
   // Ask user for project details
   prompting() {
     // Have Yeoman greet the user.
@@ -28,7 +35,7 @@ module.exports = class extends Generator {
         type: 'text',
         name: 'projectName',
         message: 'What slug do you want to use for this project?',
-        default: _.kebabCase(this.appname),
+        default: _.kebabCase(this.options.appname || this.appname),
         validate: utils.validateSlug
       },
       {
