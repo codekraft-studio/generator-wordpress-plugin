@@ -63,20 +63,6 @@ module.exports = function (grunt) {
         files: {
           'assets/dist/js/admin/admin.min.js': ['<%= concat.adminScripts.dest %>']
         }
-      },
-      vendorScripts: {
-        options: {
-          sourceMap: false
-        },
-        files: [{
-          expand: true,
-          cwd: 'assets/src/js/vendor',
-          src: '**/*.js',
-          dest: 'assets/dist/js/vendor',
-          rename: function (dst, src) {
-            return dst + '/' + src.replace('.js', '.min.js');
-          }
-        }]
       }
     },
 
