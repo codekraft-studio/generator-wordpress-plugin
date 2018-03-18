@@ -33,13 +33,7 @@ gulp.task('uglify', 'Concat and uglify all the javascript files into one file.',
     .pipe(rename({extname: '.min.js'}))
     .pipe(gulp.dest('./assets/dist/js/admin'));
 
-  var vendorScripts = gulp.src('./assets/src/js/vendor/**/*.js')
-    .pipe(uglify())
-    .on('error', notify.onError('Error: <%= error.message %>'))
-    .pipe(rename({extname: '.min.js'}))
-    .pipe(gulp.dest('./assets/dist/js/vendor'));
-
-  return merge(userScript, adminScript, vendorScripts);
+  return merge(userScript, adminScript);
 });
 
 gulp.task('sass', 'Compile and minify all the sass files into one file.', function () {
