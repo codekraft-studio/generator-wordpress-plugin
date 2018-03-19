@@ -19,7 +19,16 @@ module.exports = class extends Generator {
     super(args, opts);
 
     // Optionally take first argument as project name
-    this.argument('appname', { type: String, required: false });
+    this.argument('appname', {
+      type: String,
+      required: false
+    });
+
+    this.option('git', {
+      description: 'Create an empty Git repository for the project',
+      type: Boolean,
+      default: true
+    });
 
     // To avoid mess throw error if selected folder exists and is not empty
     const p = this.destinationPath(this.options.appname || '');
@@ -31,9 +40,7 @@ module.exports = class extends Generator {
   // Ask user for project details
   prompting() {
     // Have Yeoman greet the user.
-    this.log(yosay(
-      'Welcome to ' + chalk.bold.red('wordpress-plugin') + ' generator!'
-    ));
+    this.log(yosay('Welcome to ' + chalk.bold.redBright('wordpress-plugin') + ' generator!'));
 
     // Main project setup prompt questions
     // this details are stored into yo-rc config file
