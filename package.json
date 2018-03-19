@@ -31,8 +31,7 @@
     "chalk": "^2.3.2",
     "lodash": "^4.17.5",
     "php-writer": "^3.0.0",
-    "yeoman-generator": "^2.0.3",
-    "yosay": "^2.0.1"
+    "yeoman-generator": "^2.0.3"
   },
   "jest": {
     "testEnvironment": "node"
