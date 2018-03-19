@@ -15,6 +15,8 @@ class <%= className %> {
 
   private $toolbars = array();
 
+	private $taxonomies = array();
+
   public function __construct() {
 
     // Plugin uninstall hook
@@ -56,6 +58,11 @@ class <%= className %> {
       new $className();
     }
 
+		// Init plugin taxonomies
+		foreach ($this->taxonomies as $className => $path) {
+			include_once( <%= definePrefix %>_INCLUDE_DIR . $path );
+			new $className();
+		}
   }
 
   /**
