@@ -53,7 +53,7 @@ module.exports = class extends WPGenerator {
       name: 'post_types',
       message: 'Which post_types do you want to link to this taxonomy?',
       default: ['post'],
-      filter: v => v.split(',')
+      filter: v => Array.isArray(v) ? v : v.split(',')
     }, {
       type: 'confirm',
       name: 'public',
