@@ -34,8 +34,10 @@ class <%= childClassName %>_Menu_Page {
 	    <div class="wrap">
 
 			<div class="card">
-				<h1><?php _e( 'WP Vuln', '<%= projectName %>' ); ?></h1>
-				<p><?php _e( 'Start from here to build you awesome plugin, using this basic setup.', '<%= projectName %>' ); ?></p>
+				<h1><?php _e( '<%= menu_title %>', '<%= projectName %>' ); ?></h1>
+				<p>
+          <?php _e('This is the <%= menu_title %> menu page, start here to build your plugin settings.', '<%= projectName %>'); ?>
+        </p>
 			</div>
 
 		</div><?php
