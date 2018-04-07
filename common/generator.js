@@ -40,13 +40,11 @@ module.exports = class WPGenerator extends Generator {
 
   constructor(args, opts) {
     super(args, opts);
-
-    // Init a empty props object
     this.props = {};
-
-    // All the submodules has a required name property
-    // that identify the class name and is the seed for building other informations
-    this.argument('name', {type: String, required: true});
+    this.argument('name', {
+      type: String,
+      required: false
+    });
   }
 
   // Get the AST rapresentation of the php class file that should
@@ -83,7 +81,11 @@ module.exports = class WPGenerator extends Generator {
 
     // Name is an option that has been set inside the subgenerator class
     // in the configuring method that is called before writing
-    const filename = _.kebabCase(this.options.name);
+    const fileName = _.kebabCase(this.options.name);
+    const directoryName = this.directory || this.name;
+    const destination = path.join('include', directoryName, `class-${fileName}-${this.name}.php`);
+
+    // TODO: Get the template from common source
     this.fs.copyTpl(
       this.templatePath(`${this.name}/template.php`),
       this.destinationPath(`include/${this.name}/class-${filename}.php`),

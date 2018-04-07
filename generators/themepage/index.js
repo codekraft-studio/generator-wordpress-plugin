@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
+const utils = require('../../common/utils');
 const path = require('path');
 const WPGenerator = require('../../common/generator');
 
@@ -27,22 +28,26 @@ module.exports = class extends WPGenerator {
       type: 'input',
       name: 'page_title',
       message: 'What is the theme page title?',
-      default: _.upperFirst(this.options.name)
+      default: _.upperFirst(this.options.name),
+      validate: utils.validateRequired
     },{
       type: 'input',
       name: 'menu_title',
       message: 'What is the theme page menu title?',
-      default: answers => _.upperFirst(answers.page_title)
+      default: answers => _.upperFirst(answers.page_title),
+      validate: utils.validateRequired
     }, {
       type: 'input',
       name: 'capability',
       message: 'What is the theme page capability?',
-      default: "administrator"
+      default: "administrator",
+      validate: utils.validateRequired
     }, {
       type: 'input',
       name: 'menu_slug',
       message: 'What is the theme page menu unique slug?',
-      default: answers => _.kebabCase(`${answers.menu_title}`)
+      default: answers => _.kebabCase(`${answers.menu_title}`),
+      validate: utils.validateRequired
     }]).then((answers) => {
       _.assign(this.props, answers);
     });
