@@ -85,10 +85,9 @@ module.exports = class WPGenerator extends Generator {
     const directoryName = this.directory || this.name;
     const destination = path.join('include', directoryName, `class-${fileName}-${this.name}.php`);
 
-    // TODO: Get the template from common source
     this.fs.copyTpl(
       this.templatePath(`${this.name}/template.php`),
-      this.destinationPath(`include/${this.name}/class-${filename}.php`),
+      this.destinationPath(destination),
       this.props
     );
   }
