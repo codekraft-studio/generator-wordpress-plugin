@@ -2,16 +2,37 @@
 
 const _ = require('lodash');
 const fs = require('fs');
+const path = require('path');
 const writer = require('php-writer');
 const chalk = require('chalk');
 const Generator = require('yeoman-generator');
 
+// Try to keep the output unhaltered as much as possible
+// from the source file that the user is editing
 const writerOptions = {
   writer: {
-    indent: false,
+    indent: true,
     shortArray: false,
+    dontUseWhitespaces: false,
     bracketsNewLine: false,
-    collapseEmptyLines: false
+    collapseEmptyLines: true,
+    forceNamespaceBrackets: false
+  },
+  parser: {
+    debug: false,
+    locations: false,
+    extractDoc: true,
+    suppressErrors: false
+  },
+  lexer: {
+    all_tokens: true,
+    comment_tokens: true,
+    mode_eval: true,
+    asp_tags: true,
+    short_tags: true
+  },
+  ast: {
+    withPositions: true
   }
 };
 
@@ -19,54 +40,59 @@ module.exports = class WPGenerator extends Generator {
 
   constructor(args, opts) {
     super(args, opts);
-    // Init a empty props object
     this.props = {};
-    // All the submodules has a required name property
-    // that identify the class name and is the seed for building other informations
-    this.argument('name', {type: String, required: true});
+    this.argument('name', {
+      type: String,
+      required: false
+    });
   }
 
-  // Get the plugin main class file content
-  getMainClassFile() {
-    const mainClass = this.destinationPath('include/class-main.php');
-    const content = fs.readFileSync( mainClass, 'utf8' );
+  // Get the AST rapresentation of the php class file that should
+  // be modified during the execution of the subgenerator
+  getFileAST() {
+    const fileSource = this.destinationPath('include/class-main.php');
+    const content = fs.readFileSync(fileSource, 'utf8');
     return new writer(content, writerOptions);
   }
 
   // Write the plugin main class file content
-  setMainClassFile(content) {
-    const mainClass = this.destinationPath('include/class-main.php');
+  writeFileAST(content) {
+    const filePath = this.destinationPath('include/class-main.php');
     this.log('  ', chalk.green('update'), 'include/class-main.php file with new class')
+
     // Write the file back to disk
-    fs.writeFileSync(mainClass, content, {
+    fs.writeFileSync(filePath, content, {
       encoding: 'utf8'
     });
   }
 
+  // Try to get the parent project configuration settings
   defaults() {
     let config = this.config.getAll();
     if( _.isEmpty(config) ) {
       this.env.error("You must run this command inside an existing project.");
     }
-    // Get the global project variables
     this.props = _.assignIn(config, this.props);
   }
 
-  // Write subgenerator template to include folder
+  // Write subgenerator template to a dinamic generated destination
   writing() {
-    this.log('\nNow I\'ll start to create the files:\n');
+    this.sourceRoot(path.join(__dirname, '../generators/templates/'));
+
     // Name is an option that has been set inside the subgenerator class
     // in the configuring method that is called before writing
-    const filename = _.kebabCase(this.options.name);
+    const fileName = _.kebabCase(this.options.name);
+    const directoryName = this.directory || this.name;
+    const destination = path.join('include', directoryName, `class-${fileName}-${this.name}.php`);
+
     this.fs.copyTpl(
-      this.templatePath('template.ejs'),
-      this.destinationPath(`include/${this.name}/class-${filename}.php`),
+      this.templatePath(`${this.name}/template.php`),
+      this.destinationPath(destination),
       this.props
     );
   }
 
-  // Print extra informations about the writing failure
-  // and the manual updates to perform to main class file
+  // If the php file writing fails show to the user how to manually add the code
   warningMessage() {
     this.log(
       chalk.bold.yellow('You should manually add'),
@@ -75,9 +101,8 @@ module.exports = class WPGenerator extends Generator {
     );
   }
 
-  // Print the end message
   end() {
-    this.log( '\nAll the job', chalk.bold.yellow('was done'), 'see ya next.\n' );
+    this.log('\nEverything', chalk.bold.green('was good'), 'see ya next my friend.\n');
   }
 
 };

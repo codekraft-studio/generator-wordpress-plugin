@@ -11,8 +11,8 @@ const mock = require('./mock.json');
 
 describe('SubGenerator:taxonomy', () => {
   let generator;
+  let outputPath;
 
-  // Run the generator
   beforeAll((done) => {
     generator = helpers.run(path.join(__dirname, `../generators/${subGenerator}`))
       .withPrompts({ description: 'The taxonomy test.' })
@@ -20,17 +20,18 @@ describe('SubGenerator:taxonomy', () => {
 
     // Use mock values
     generator.on('ready', (generator) => {
+      outputPath = `include/${subGenerator}/class-test-${generator.name}.php`;
       generator.config.set(mock.config);
       generator.config.save();
     }).on('end', done);
   });
 
   it('create class file in directory named like subgenerator', () => {
-    assert.file([`include/${subGenerator}/class-test.php`]);
+    assert.file([outputPath]);
   });
 
   it('set the class name of the file as input plus subgenerator name', () => {
-    assert.fileContent(`include/${subGenerator}/class-test.php`, `class ${mock.input}_${_.capitalize(subGenerator)}`);
+    assert.fileContent(outputPath, `class ${mock.input}_${_.capitalize(subGenerator)}`);
   });
 
 });

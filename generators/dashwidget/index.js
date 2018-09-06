@@ -36,7 +36,7 @@ module.exports = class extends WPGenerator {
 
     try {
 
-      const ast = this.getMainClassFile();
+      const ast = this.getFileAST();
       const classObject = ast.findClass(this.props.className);
 
       // Exit if the class object does not exist
@@ -59,7 +59,7 @@ module.exports = class extends WPGenerator {
       });
 
       // Exit if entry is already in
-      if( index > -1 ) {
+      if (index > -1) {
         this.log(chalk.cyan('identical'), `class name ${childClass} inside dashWidgets array.`)
         return;
       }
@@ -80,7 +80,7 @@ module.exports = class extends WPGenerator {
       });
 
       // Write the file back
-      this.setMainClassFile(ast.toString());
+      this.writeFileAST(ast.toString());
 
     } catch (err) {
       this.log(chalk.bold.red(err.toString()));

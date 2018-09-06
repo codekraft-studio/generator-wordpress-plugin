@@ -11,8 +11,9 @@ const mock = require('./mock.json');
 
 describe('SubGenerator:shortcode', () => {
   let generator;
+  let outputPath;
+
   beforeAll((done) => {
-    // Run the generator
     generator = helpers.run(path.join(__dirname, `../generators/${subGenerator}`))
       .withArguments([mock.input])
       .withOptions({
@@ -22,24 +23,25 @@ describe('SubGenerator:shortcode', () => {
 
     // Use mock values
     generator.on('ready', (generator) => {
+      outputPath = `include/${subGenerator}/class-test-${generator.name}.php`;
       generator.config.set(mock.config);
       generator.config.save();
     }).on('end', done);
   });
 
   it('create class file in directory named like subgenerator', () => {
-    assert.file([`include/${subGenerator}/class-test.php`]);
+    assert.file([outputPath]);
   });
 
   it('set the class name of the file as input plus subgenerator name', () => {
-    assert.fileContent(`include/${subGenerator}/class-test.php`, `class ${mock.input}_${_.capitalize(subGenerator)}`);
+    assert.fileContent(outputPath, `class ${mock.input}_${_.capitalize(subGenerator)}`);
   });
 
   it('enable the shortcode attributes filter', () => {
-    assert.fileContent(`include/${subGenerator}/class-test.php`, "), $atts, 'test' );");
+    assert.fileContent(outputPath, "), $atts, 'test' );");
   });
 
   it('has the content argument for encapsulated shortcodes', () => {
-    assert.fileContent(`include/${subGenerator}/class-test.php`, "($atts, $content = null)");
+    assert.fileContent(outputPath, "($atts, $content = null)");
   });
 });

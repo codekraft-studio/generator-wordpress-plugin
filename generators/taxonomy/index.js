@@ -53,7 +53,7 @@ module.exports = class extends WPGenerator {
       name: 'post_types',
       message: 'Which post_types do you want to link to this taxonomy?',
       default: ['post'],
-      filter: v => v.split(',')
+      filter: v => Array.isArray(v) ? v : v.split(',')
     }, {
       type: 'confirm',
       name: 'public',
@@ -88,7 +88,7 @@ module.exports = class extends WPGenerator {
 
     try {
 
-      const ast = this.getMainClassFile();
+      const ast = this.getFileAST();
       const classObject = ast.findClass(this.props.className);
 
       // Exit if the class object does not exist
@@ -132,7 +132,7 @@ module.exports = class extends WPGenerator {
       });
 
       // Write the file back
-      this.setMainClassFile(ast.toString());
+      this.writeFileAST(ast.toString());
 
     } catch (err) {
       this.log(chalk.bold.red(err.toString()));

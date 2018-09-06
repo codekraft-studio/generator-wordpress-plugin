@@ -48,7 +48,7 @@ class <%= childClassName %>_Taxonomy {
   		'show_ui'                    => <%= show_ui %>
   	);
 
-  	register_taxonomy( 'taxonomy', array( <%= post_types.join(', ') %> ), $args );
+  	register_taxonomy( 'taxonomy', array( '<%= post_types.join('\', \'') %>' ), $args );
   }
 
 }
