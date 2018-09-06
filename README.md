@@ -89,14 +89,16 @@ This is the default generator, once is called it will ask few questions and setu
 
 ## Subgenerators
 
-### metabox [name]
+### metabox
+
 
 This command will create a metabox class inside the `include/metabox/`, than it will update the **$metaboxes** property on the main plugin class.
 The metabox template is based on [WordPress Codex Metabox](https://developer.wordpress.org/reference/functions/add_meta_box/) rules, for more information about the code please refer to it.
 
 #### example: `yo wordpress-plugin:metabox Test`
 
-### shortcode [name]
+### shortcode
+
 
 This command will create a shortcode class inside the `include/shortcode/`, than it will update the **$shortcodes** property on the main plugin class.
 The shortcode template is based on [WordPress Codex Shortcode](https://codex.wordpress.org/Shortcode_API) rules, for more information about the code please refer to it.
@@ -110,7 +112,8 @@ The shortcode template is based on [WordPress Codex Shortcode](https://codex.wor
 | filter    | `false` | Allow the shortcode attributes to be filtered          |
 | enclosing | `false` | Create the shortcode as enclosing tag (enable content) |
 
-### widget [name]
+### widget
+
 
 This command will create a widget class inside the `include/widget/`, than it will update the **$widgets** property on the main plugin class.
 The widget template is based on [WordPress Codex Widget](https://codex.wordpress.org/Widgets_API) rules, for more information about the code please refer to it.
@@ -121,14 +124,14 @@ The widget template is based on [WordPress Codex Widget](https://codex.wordpress
 
 -   **description**: The description for the widget. Default: `The [name] widget description.`
 
-### dashwidget [name]
+### dashwidget
 
 This command makes very simple to add new widgets to the [administration dashboard](https://codex.wordpress.org/Dashboard_SubPanel). Once is run it will create a dashwidget class inside the `include/dashwidget/`, than it will update the **$dashwidgets** property on the main plugin class.
 The dashwidget template is based on [WordPress Codex Dashboard Widgets](https://codex.wordpress.org/Dashboard_Widgets_API) rules, for more information about the code please refer to it.
 
 #### example: `yo wordpress-plugin:dashwidget Test`
 
-### toolbar [name]
+### toolbar
 
 The Toolbar is an area of the screen just above the site that lists useful admininstration screen links such as add a new post or edit your profile.
 The Toolbar contains links to information about WordPress, as well as quick-links to create new posts, pages and links, add new users, review comments, and alerts to available updates to plugins and themes on your site.
