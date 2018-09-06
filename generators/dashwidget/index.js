@@ -59,7 +59,7 @@ module.exports = class extends WPGenerator {
       });
 
       // Exit if entry is already in
-      if( index > -1 ) {
+      if (index > -1) {
         this.log(chalk.cyan('identical'), `class name ${childClass} inside dashWidgets array.`)
         return;
       }

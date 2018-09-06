@@ -23,35 +23,35 @@ module.exports = class extends WPGenerator {
 
   // Get specific submodule details
   prompting() {
-    return this.prompt([ {
-      type: 'input',
-      name: 'page_title',
-      message: 'What is the comments page title?',
-      default: _.upperFirst(this.options.name)
-    },{
-      type: 'input',
-      name: 'menu_title',
-      message: 'What is the comments page menu title?',
-      default: answers => _.upperFirst(answers.page_title)
-    }, {
-      type: 'input',
-      name: 'capability',
-      message: 'What is the comments page capability?',
-      default: "administrator"
-    }, {
-      type: 'input',
-      name: 'menu_slug',
-      message: 'What is the comments page menu unique slug?',
-      default: answers => _.kebabCase(`${answers.menu_title}`)
-    }]).then((answers) => {
+    return this.prompt([
+      {
+        type: 'input',
+        name: 'page_title',
+        message: 'What is the comments page title?',
+        default: _.upperFirst(this.options.name)
+      }, {
+        type: 'input',
+        name: 'menu_title',
+        message: 'What is the comments page menu title?',
+        default: answers => _.upperFirst(answers.page_title)
+      }, {
+        type: 'input',
+        name: 'capability',
+        message: 'What is the comments page capability?',
+        default: "administrator"
+      }, {
+        type: 'input',
+        name: 'menu_slug',
+        message: 'What is the comments page menu unique slug?',
+        default: answers => _.kebabCase(`${answers.menu_title}`)
+      }
+    ]).then((answers) => {
       _.assign(this.props, answers);
     });
   }
 
   // Set specific properties
   configuring() {
-
-    // Sub generator properties overrides
     this.options.name = this.props.menu_slug;
     this.props.id = _.snakeCase(this.options.name);
     this.props.title = _.startCase(this.options.name);
@@ -64,9 +64,7 @@ module.exports = class extends WPGenerator {
   }
 
   // Used internally to dinamic update the main class
-  conflicts() {
-
-  }
+  conflicts() {}
 
   end() {
     super.end();

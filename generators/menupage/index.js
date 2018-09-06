@@ -21,45 +21,45 @@ module.exports = class extends WPGenerator {
 
   // Get specific submodule details
   prompting() {
-    return this.prompt([{
-      type: 'input',
-      name: 'page_title',
-      message: 'What is the page title?',
-      default: this.options.name
-    }, {
-      type: 'input',
-      name: 'menu_title',
-      message: 'What is the menu title?',
-      default: answers => _.upperFirst(answers.page_title)
-    }, {
-      type: 'input',
-      name: 'capability',
-      message: 'What is the menu page capability?',
-      default: "administrator"
-    }, {
-      type: 'input',
-      name: 'menu_slug',
-      message: 'What is the menu unique slug?',
-      default: answers => _.kebabCase(answers.menu_title)
-    }, {
-      type: 'input',
-      name: 'icon',
-      message: 'What icon do you want to use?',
-      default: 'dashicons-admin-generic'
-    }, {
-      type: 'input',
-      name: 'position',
-      message: 'What is the menu unique slug?',
-      default: 100
-    }]).then((answers) => {
+    return this.prompt([
+      {
+        type: 'input',
+        name: 'page_title',
+        message: 'What is the page title?',
+        default: this.options.name
+      }, {
+        type: 'input',
+        name: 'menu_title',
+        message: 'What is the menu title?',
+        default: answers => _.upperFirst(answers.page_title)
+      }, {
+        type: 'input',
+        name: 'capability',
+        message: 'What is the menu page capability?',
+        default: "administrator"
+      }, {
+        type: 'input',
+        name: 'menu_slug',
+        message: 'What is the menu unique slug?',
+        default: answers => _.kebabCase(answers.menu_title)
+      }, {
+        type: 'input',
+        name: 'icon',
+        message: 'What icon do you want to use?',
+        default: 'dashicons-admin-generic'
+      }, {
+        type: 'input',
+        name: 'position',
+        message: 'What is the menu unique slug?',
+        default: 100
+      }
+    ]).then((answers) => {
       _.assign(this.props, answers);
     });
   }
 
   // Set specific properties
   configuring() {
-
-    // Sub generator properties overrides
     this.options.name = this.props.menu_slug;
     this.props.id = _.snakeCase(this.options.name);
     this.props.title = _.startCase(this.options.name);
@@ -72,9 +72,7 @@ module.exports = class extends WPGenerator {
   }
 
   // Used internally to dinamic update the main class
-  conflicts() {
-
-  }
+  conflicts() {}
 
   end() {
     super.end();

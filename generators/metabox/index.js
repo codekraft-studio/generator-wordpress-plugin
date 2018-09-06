@@ -45,8 +45,6 @@ module.exports = class extends WPGenerator {
 
   // Set specific properties
   configuring() {
-
-    // Sub generator properties overrides
     this.props.id = _.snakeCase(this.options.name);
     this.props.title = _.startCase(this.options.name);
     this.props.childClassName = _.upperFirst(_.camelCase(this.options.name));
