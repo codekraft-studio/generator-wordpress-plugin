@@ -1,3 +1,5 @@
+import 'src/scss/admin.scss'
+
 (function ($) {
   'use strict';
 
