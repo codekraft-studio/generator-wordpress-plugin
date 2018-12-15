@@ -18,10 +18,9 @@ class <%= className %>_Admin {
 		add_action("init", array($this, "register_shortcodes"));
 		add_action("init", array($this, "register_taxonomies"));
 		add_action("widgets_init", array($this, "register_widgets"));
-        add_action("admin_init", array($this, "register_metaboxes"));
-        add_action("admin_menu", array($this, "register_pages"));
-        add_action("admin_menu", array($this, "register_toolbars"));
-
+    add_action("admin_init", array($this, "register_metaboxes"));
+    add_action("admin_menu", array($this, "register_pages"));
+    add_action("admin_menu", array($this, "register_toolbars"));
 		// add_action("admin_init", array($this, "plugin_register_settings"));
 	}
 

@@ -1,4 +1,3 @@
-'use strict';
 const path = require('path');
 const assert = require('yeoman-assert');
 const utils = require('../common/utils');
@@ -14,12 +13,6 @@ describe('SubGenerator:app', () => {
     assert.equal( utils.validateSlug('test-plugin'), true );
     assert.equal( utils.validateSlug('Test Plugin'), 'You should follow the WordPress plugin name standard.' );
     assert.equal( utils.validateSlug('test_plugin'), 'You should follow the WordPress plugin name standard.' );
-  });
-
-  it('validate input against enabled project manager options', () => {
-    assert.equal( utils.validateProjectManager('grunt'), true );
-    assert.equal( utils.validateProjectManager('gulp'), true );
-    assert.equal( utils.validateProjectManager('webpack'), 'You must use grunt or gulp.' );
   });
 
   it('validate the project version number with semver standards', () => {

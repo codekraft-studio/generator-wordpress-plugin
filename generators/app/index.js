@@ -25,7 +25,6 @@ const banner = chalk`
 module.exports = class extends Generator {
   constructor(args, opts) {
     super(args, opts);
-
     this.log(banner);
 
     // Optionally take first argument as project name
@@ -69,23 +68,10 @@ module.exports = class extends Generator {
         message: 'What is the project description?',
         default: answers => `This is the ${answers.projectTitle} description`
       }, {
-        type: 'list',
+        type: 'confirm',
         name: 'projectManager',
         message: 'What do you want to use a project manager?',
-        default: 'grunt',
-        choices: [
-          {
-            name: 'Nothing',
-            value: false
-          }, {
-            name: 'Grunt',
-            value: 'grunt'
-          }, {
-            name: 'Gulp',
-            value: 'gulp'
-          }
-        ],
-        validate: utils.validateProjectManager
+        default: true
       }, {
         type: 'text',
         name: 'projectVersion',
@@ -164,96 +150,27 @@ module.exports = class extends Generator {
       }
     ];
 
-    // Handle the different project managers configurations and tweaks
     if (this.props.projectManager) {
-      const pkg = {
-        "name": this.props.projectName,
-        "version": this.props.projectVersion,
-        "description": this.props.projectDescription,
-        "author": this.props.projectAuthor,
-        "license": this.props.projectLicense,
-        "scripts": {
-          "start": "grunt",
-          "build": "grunt build",
-          "postinstall": "npm run build"
-        },
-        "devDependencies": {
-          "autoprefixer": "^7.1.4",
-          "babel-preset-es2015": "^6.24.1"
-        }
-      };
 
-      switch (this.props.projectManager) {
-        // Write the grunt config file and extend dependencies
-        case 'grunt':
-          copyFiles.push({
-            src: this.templatePath('grunt/_Gruntfile.js'),
-            dest: this.destinationPath('Gruntfile.js')
-          }, {
-            src: this.templatePath('plugin/assets/src/scss'),
-            dest: this.destinationPath('assets/src/scss')
-          }, {
-            src: this.templatePath('plugin/assets/src/js'),
-            dest: this.destinationPath('assets/src/js')
-          });
+      copyTplFiles.push({
+        src: this.templatePath('plugin/package.json'),
+        dest: this.destinationPath('package.json')
+      }, {
+        src: this.templatePath('plugin/webpack.config.js'),
+        dest: this.destinationPath('webpack.config.js')
+      }, {
+        src: this.templatePath('plugin/assets/src/scss'),
+        dest: this.destinationPath('assets/src/scss')
+      }, {
+        src: this.templatePath('plugin/assets/src/js'),
+        dest: this.destinationPath('assets/src/js')
+      });
 
-          // Extend default package configuration
-          pkg.devDependencies = Object.assign(pkg.devDependencies, {
-            "grunt": "^1.0.1",
-            "grunt-babel": "^7.0.0",
-            "grunt-contrib-clean": "^1.1.0",
-            "grunt-contrib-concat": "^1.0.1",
-            "grunt-contrib-jshint": "^1.1.0",
-            "grunt-contrib-uglify": "^3.1.0",
-            "grunt-contrib-watch": "^1.0.0",
-            "grunt-newer": "^1.3.0",
-            "grunt-phpdocs": "^0.1.0",
-            "grunt-postcss": "^0.9.0",
-            "grunt-sass": "^2.0.0",
-            "grunt-wp-i18n": "^1.0.0"
-          });
-          break;
-
-        // Write the gulp config file and extend dependencies
-        case 'gulp':
-          copyFiles.push({
-            src: this.templatePath('gulp/_gulpfile.js'),
-            dest: this.destinationPath('gulpfile.js')
-          }, {
-            src: this.templatePath('plugin/assets/src/scss'),
-            dest: this.destinationPath('assets/src/scss')
-          }, {
-            src: this.templatePath('plugin/assets/src/js'),
-            dest: this.destinationPath('assets/src/js')
-          });
-
-          // Extend default package configuration
-          pkg.devDependencies = Object.assign(pkg.devDependencies, {
-            "gulp": "^3.9.1",
-            "gulp-babel": "^6.1.2",
-            "gulp-concat": "^2.6.1",
-            "gulp-help": "^1.6.1",
-            "gulp-notify": "^2.2.0",
-            "gulp-rename": "^1.2.2",
-            "gulp-sass": "^3.1.0",
-            "gulp-uglify": "^2.0.0",
-            "gulp-watch": "^4.3.11",
-            "gulp-wp-pot": "^2.0.3",
-            "merge-stream": "^1.0.1"
-          });
-          break;
-      }
-
-      // Write the package file
-      this.fs.writeJSON(this.destinationPath('package.json'), pkg);
     } else {
 
       copyFiles.push({
-        src: this.templatePath('plugin/assets/src/css'),
-        dest: this.destinationPath('assets/css')
-      }, {
-        src: this.templatePath('plugin/assets/src/js'),
-        dest: this.destinationPath('assets/js')
+        src: this.templatePath('plugin/assets/src/plain'),
+        dest: this.destinationPath('assets/dist')
       });
 
     }

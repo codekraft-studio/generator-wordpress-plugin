@@ -63,6 +63,7 @@ class <%= className %> {
 			include_once( <%= definePrefix %>_INCLUDE_DIR . $path );
 			new $className();
 		}
+
 	}
 
 	/**
@@ -161,18 +162,16 @@ class <%= className %> {
 	*/
 	function plugin_enqueue_admin_scripts() {
 
-		$min = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
-
 		wp_register_style(
 			'<%= projectName %>_admin_style',
-			<%= definePrefix %>_DIR_URL . '/assets/<%= projectManager ? 'dist/' : '' %>css/admin.css',
+			<%= definePrefix %>_DIR_URL . '/assets/dist/admin.css',
 			array(),
 			null
 		);
 
 		wp_register_script(
 			'<%= projectName %>_admin_script',
-			<%= definePrefix %>_DIR_URL . "/assets/<%= projectManager ? 'dist/' : '' %>js/admin/admin{$min}.js",
+			<%= definePrefix %>_DIR_URL . "/assets/dist/admin.js",
 			array('jquery'),
 			null,
 			true
@@ -189,18 +188,16 @@ class <%= className %> {
 	*/
 	function plugin_enqueue_scripts() {
 
-		$min = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
-
 		wp_register_style(
 			"<%= projectName %>_user_style",
-			<%= definePrefix %>_DIR_URL . "/assets/<%= projectManager ? 'dist/' : '' %>css/user.css",
+			<%= definePrefix %>_DIR_URL . "/assets/dist/user.css",
 			array(),
 			null
 		);
 
 		wp_register_script(
 			"<%= projectName %>_user_script",
-			<%= definePrefix %>_DIR_URL . "/assets/<%= projectManager ? 'dist/' : '' %>js/user/user{$min}.js",
+			<%= definePrefix %>_DIR_URL . "/assets/dist/user.js",
 			array('jquery'),
 			null,
 			true
@@ -219,7 +216,7 @@ class <%= className %> {
 		if ( !empty( $styles ) ) {
 			$styles .= ',';
 		}
-		$styles .= <%= definePrefix %>_DIR_URL . '/assets/dist/css/editor-style.css';
+		$styles .= <%= definePrefix %>_DIR_URL . '/assets/dist/editor-style.css';
 		return $styles;
 	}
 
