@@ -45,6 +45,15 @@ describe('Generator:app', () => {
       });
     });
 
+    it('copy the assets source files', () => {
+      assert.file([
+        'assets/src/scss/user.scss',
+        'assets/src/scss/admin.scss',
+        'assets/src/js/admin/admin.js',
+        'assets/src/js/user/user.js'
+      ]);
+    });
+
     it('set the project details in the configuration file', () => {
       assert.fileContent('.yo-rc.json', `"projectName": "${prompts.projectName}"`);
       assert.fileContent('.yo-rc.json', `"projectTitle": "${prompts.projectTitle}"`);
@@ -52,8 +61,10 @@ describe('Generator:app', () => {
     });
 
     it('set the assets path', () => {
-      assert.fileContent('include/class-main.php', `/assets/dist/css/user.css`);
-      assert.fileContent('include/class-main.php', `/assets/dist/js/user/user{$min}.js`);
+      assert.fileContent('include/class-main.php', `/assets/dist/user.css`);
+      assert.fileContent('include/class-main.php', `/assets/dist/user.js`);
+      assert.fileContent('include/class-main.php', `/assets/dist/admin.css`);
+      assert.fileContent('include/class-main.php', `/assets/dist/admin.js`);
     });
   });
 
@@ -71,25 +82,20 @@ describe('Generator:app', () => {
       assert.noFile('package.json');
     });
 
-    it('wont create the package manager files', () => {
-      assert.noFile([
-        'gulpfile.js',
-        'Gruntfile.js'
-      ]);
-    });
-
     it('copy the assets without src dir', () => {
       assert.file([
-        'assets/css/user.css',
-        'assets/css/admin.css',
-        'assets/js/admin/admin.js',
-        'assets/js/user/user.js'
+        'assets/dist/user.css',
+        'assets/dist/admin.css',
+        'assets/dist/admin.js',
+        'assets/dist/user.js'
       ]);
     });
 
     it('set the assets path', () => {
-      assert.fileContent('include/class-main.php', `/assets/css/user.css`);
-      assert.fileContent('include/class-main.php', `/assets/js/user/user{$min}.js`);
+      assert.fileContent('include/class-main.php', `/assets/dist/user.css`);
+      assert.fileContent('include/class-main.php', `/assets/dist/admin.css`);
+      assert.fileContent('include/class-main.php', `/assets/dist/user.js`);
+      assert.fileContent('include/class-main.php', `/assets/dist/admin.js`);
     });
   });
 
