@@ -101,7 +101,6 @@ module.exports = class extends Generator {
   // Configure the project folder and context
   configuring() {
     if (path.basename(this.destinationPath()) !== this.props.projectName) {
-      this.log('Your generator must be inside a folder named ' + this.props.projectName + '\n' + 'I\'ll automatically create this folder.');
 
       // Try to create the folder
       if (!mkdirp.sync(this.props.projectName)) {
