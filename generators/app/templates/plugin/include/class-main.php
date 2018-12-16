@@ -64,6 +64,12 @@ class <%= className %> {
 			new $className();
 		}
 
+		// Init plugin toolbars
+		foreach ($this->toolbars as $className => $path) {
+			include_once( <%= definePrefix %>_INCLUDE_DIR . $path );
+			new $className();
+		}
+
 	}
 
 	/**

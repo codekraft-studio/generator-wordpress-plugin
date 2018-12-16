@@ -24,7 +24,7 @@ module.exports = class extends BaseGenerator {
       type: 'input',
       name: 'description',
       message: 'How you would describe this widget?',
-      default: answers => `The ${_.startCase(answers.name)} widget description.`
+      default: answers => `The ${_.startCase(answers.name || this.options.name)} widget description.`
     }]);
   }
 

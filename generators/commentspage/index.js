@@ -28,7 +28,7 @@ module.exports = class extends BaseGenerator {
         type: 'input',
         name: 'page_title',
         message: 'What is the comments page title?',
-        default: _.upperFirst(this.options.name)
+        default: answers => _.upperFirst(answers.name || this.options.name)
       }, {
         type: 'input',
         name: 'menu_title',

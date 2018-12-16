@@ -1,8 +1,8 @@
 {
-  "name": "@codekraft-studio/generator-wordpress-plugin",
-  "version": "0.0.11",
+  "name": "generator-wordpress-plugin",
+  "version": "0.0.12",
   "description": "The best way to start creating your WordPress plugin projects.",
-  "homepage": "",
+  "homepage": "https://github.com/codekraft-studio/generator-wordpress-plugin",
   "author": {
     "name": "codekraft-studio",
     "email": "info@codekraft.it",

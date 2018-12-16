@@ -29,7 +29,7 @@ module.exports = class extends BaseGenerator {
       type: 'input',
       name: 'title',
       message: 'What is the title for this toolbar (shown in the bar)?',
-      default: `${_.startCase(this.options.name)} Toolbar`
+      default: answers => `${_.startCase(answers.name || this.options.name)} Toolbar`
     }, {
       type: 'confirm',
       name: 'hasChild',

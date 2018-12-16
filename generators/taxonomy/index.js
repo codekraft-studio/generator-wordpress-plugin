@@ -24,7 +24,7 @@ module.exports = class extends BaseGenerator {
       type: 'input',
       name: 'description',
       message: 'What is the taxonomy description?',
-      default: `The ${_.startCase(this.options.name)} taxonomy description.`
+      default: answers => `The ${_.startCase(answers.name || this.options.name)} taxonomy description.`
     }, {
       type: 'input',
       name: 'singular_name',
