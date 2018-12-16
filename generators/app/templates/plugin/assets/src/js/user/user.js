@@ -1,3 +1,5 @@
+import 'src/scss/user.scss'
+
 (function ($) {
   'use strict';
 

@@ -9,13 +9,13 @@
  * @license <%= projectLicense %>
  *
  */
-class <%= name %>_Shortcode {
+class <%= shortcodeName %>_Shortcode {
 
   /**
    * The shortcode tag name
    * @type {String}
    */
-  private $shortcode_name = '<%= tag %>';
+  private $shortcode_name = '<%= shortcodeTag %>';
 
   public function __construct() {
     add_shortcode( $this->shortcode_name, array($this, 'do_shortcode') );
@@ -31,13 +31,13 @@ class <%= name %>_Shortcode {
 
     // Get the shortcode options
     $a = shortcode_atts( array(
-      'title' => '<%= name %> Shortcode'
-    ), $atts<%- filter ? (', ' + "'" + tag + "'") : '' %> );
+      'title' => '<%= shortcodeName %> Shortcode'
+    ), $atts<%- filter ? (', ' + "'" + shortcodeTag + "'") : '' %> );
 
     // Start capturing
     ob_start(); ?>
 
-    <div class="<%= tag %>-shortcode">
+    <div class="<%= shortcodeTag %>-shortcode">
       <h4><?php echo $a['title']; ?></h4><% if (enclosing) { %>
       <p><?php echo $content; ?></p><% } %>
     </div><?php

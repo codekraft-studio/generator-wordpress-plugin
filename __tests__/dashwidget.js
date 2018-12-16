@@ -9,10 +9,10 @@ const subGenerator = path.basename(__filename, '.js');
 
 const mock = require('./mock.json');
 
-describe('SubGenerator:widget', () => {
+describe('SubGenerator:dashwidget', () => {
   let generator;
   let outputPath;
-  
+
   beforeAll((done) => {
     generator = helpers.run(path.join(__dirname, `../generators/${subGenerator}`))
       .withArguments([mock.input]);

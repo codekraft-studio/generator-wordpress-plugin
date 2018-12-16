@@ -2,9 +2,9 @@
 
 const _ = require('lodash');
 const path = require('path');
-const WPGenerator = require('../../common/generator');
+const BaseGenerator = require('../../common/generator');
 
-module.exports = class extends WPGenerator {
+module.exports = class extends BaseGenerator {
 
   constructor(args, opts) {
     super(args, opts);
@@ -30,7 +30,7 @@ module.exports = class extends WPGenerator {
 
   // Get specific submodule details
   prompting() {
-    return this.prompt([
+    return super.prompting([
       {
         type: 'input',
         name: 'parent_slug',
@@ -40,7 +40,7 @@ module.exports = class extends WPGenerator {
         type: 'input',
         name: 'page_title',
         message: 'What is the sub menu page title?',
-        default: _.upperFirst(this.options.name)
+        default: answers => _.upperFirst(answers.name || this.options.name)
       }, {
         type: 'input',
         name: 'menu_title',
@@ -57,29 +57,11 @@ module.exports = class extends WPGenerator {
         message: 'What is the sub menu page unique slug?',
         default: answers => _.kebabCase(`${answers.parent_slug}-${answers.menu_title}`)
       }
-    ]).then((answers) => {
-      _.assign(this.props, answers);
-    });
+    ]);
   }
 
-  // Set specific properties
-  configuring() {
-    this.options.name = this.props.menu_slug;
-    this.props.id = _.snakeCase(this.options.name);
-    this.props.title = _.startCase(this.options.name);
-    this.props.childClassName = _.upperFirst(_.camelCase(this.options.name));
-  }
-
-  // Call the parent writing method
   writing() {
     super.writing()
-  }
-
-  // Used internally to dinamic update the main class
-  conflicts() {}
-
-  end() {
-    super.end();
   }
 
 };

@@ -67,7 +67,7 @@ class <%= childClassName %>_Metabox {
   public function save_meta($post_id) {
 
     // Get the metabox nonce
-    $nonce = $_POST['<%= id %>_nonce'];
+    $nonce = isset($_POST['<%= id %>_nonce']) ? $_POST['<%= id %>_nonce'] : '';
 
     // Check if user has permissions to save data.
     if ( ! current_user_can( 'edit_post', $post_id ) ) {
