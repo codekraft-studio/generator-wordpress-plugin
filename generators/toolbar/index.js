@@ -2,7 +2,6 @@
 
 const _ = require('lodash');
 const path = require('path');
-const chalk = require('chalk');
 
 // Custom extended generator
 const BaseGenerator = require('../../common/generator.js');

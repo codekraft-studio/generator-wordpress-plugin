@@ -1,6 +1,5 @@
 'use strict';
 
-const { version } = require('../../package.json');
 const _ = require('lodash');
 const mkdirp = require('mkdirp');
 const fs = require('fs');

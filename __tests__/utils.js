@@ -1,4 +1,3 @@
-const path = require('path');
 const assert = require('yeoman-assert');
 const utils = require('../common/utils');
 

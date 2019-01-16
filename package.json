@@ -22,7 +22,6 @@
   "devDependencies": {
     "coveralls": "^3.0.2",
     "eslint": "^5.10.0",
-    "eslint-config-xo-space": "^0.20.0",
     "jest": "^23.6.0",
     "yeoman-assert": "^3.1.1",
     "yeoman-test": "^1.9.1"
@@ -37,10 +36,12 @@
     "testEnvironment": "node"
   },
   "scripts": {
-    "pretest": "eslint . --fix",
-    "test": "jest --coverage"
+    "pretest": "npm run lint",
+    "test": "jest --coverage",
+    "lint": "eslint . --fix"
   },
   "eslintConfig": {
+    "extends": "eslint:recommended",
     "env": {
       "jest": true,
       "node": true

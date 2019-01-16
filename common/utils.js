@@ -1,7 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
-
 module.exports = {
   validateRequired(input) {
     if (input === '') {

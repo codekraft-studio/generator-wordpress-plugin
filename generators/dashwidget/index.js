@@ -1,8 +1,6 @@
 'use strict';
 
-const _ = require('lodash');
 const path = require('path');
-const chalk = require('chalk');
 const BaseGenerator = require('../../common/generator.js');
 
 module.exports = class extends BaseGenerator {

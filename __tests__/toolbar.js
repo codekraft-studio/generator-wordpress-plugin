@@ -4,7 +4,6 @@ const _ = require('lodash');
 const path = require('path');
 const assert = require('yeoman-assert');
 const helpers = require('yeoman-test');
-const writer = require('php-writer');
 
 const subGenerator = path.basename(__filename, '.js');
 

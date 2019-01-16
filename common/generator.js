@@ -71,6 +71,7 @@ module.exports = class BaseGenerator extends Generator {
       this.props.title = _.startCase(this.props.name);
       this.props.childClassName = _.upperFirst(_.camelCase(this.props.name));
 
+      // Variables used in file creation
       this.fileName = _.kebabCase(`class-${this.props.name}-${this.name}`) + '.php';
       this.fileRelativePath = `/${this.directory || this.name}/${this.fileName}`;
       this.filePath = path.join('include', this.fileRelativePath);
