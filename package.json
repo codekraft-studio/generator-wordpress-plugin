@@ -1,6 +1,6 @@
 {
-  "name": "generator-wordpress-plugin",
-  "version": "0.0.12",
+  "name": "@wptools/generator-plugin",
+  "version": "0.1.0",
   "description": "The best way to start creating your WordPress plugin projects.",
   "homepage": "https://github.com/codekraft-studio/generator-wordpress-plugin",
   "author": {
@@ -15,9 +15,11 @@
   "main": "generators/app/index.js",
   "keywords": [
     "wordpress",
+    "wordpress-tools",
     "plugin",
     "generator",
-    "yeoman-generator"
+    "yeoman-generator",
+    "wordpress/generator"
   ],
   "devDependencies": {
     "coveralls": "^3.0.2",
