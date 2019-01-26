@@ -75,35 +75,49 @@ module.exports = class BaseGenerator extends Generator {
       this.fileName = _.kebabCase(`class-${this.props.name}-${this.name}`) + '.php';
       this.fileRelativePath = `/${this.directory || this.name}/${this.fileName}`;
       this.filePath = path.join('include', this.fileRelativePath);
+
+      // Log a new line as divider between outputs
+      this.log('');
     });
   }
 
   // Get the AST rapresentation of the php class file that should
   // be modified during the execution of the subgenerator
-  getFileAST() {
-    const fileSource = this.destinationPath('include/class-main.php');
+  getFileAST(fileName) {
+    const fileSource = this.destinationPath(fileName);
     const content = fs.readFileSync(fileSource, 'utf8');
     return new writer(content, writerOptions);
   }
 
   // Write the plugin main class file content
-  writeFileAST(content) {
-    const filePath = this.destinationPath('include/class-main.php');
-    this.log('  ', chalk.green('update'), 'include/class-main.php file with new class')
-
-    // Write the file back to disk
+  writeFileAST(fileName, content) {
+    const filePath = this.destinationPath(fileName);
+    this.log(chalk.green('updated'), `${fileName} source code`)
     fs.writeFileSync(filePath, content, {
       encoding: 'utf8'
     });
   }
 
   // Try to get the parent project configuration settings
-  defaults() {
-    let config = this.config.getAll();
+  getParentProject() {
+    const config = this.config.getAll();
     if( _.isEmpty(config) ) {
       this.env.error("You must run this command inside an existing project.");
     }
-    this.props = _.assignIn(config, this.props);
+
+    // Keep yo-rc project version in sync with an eventual package.json file
+    const pkgPath = this.destinationPath('package.json')
+    const pkgFile = fs.existsSync(pkgPath) ? require(pkgPath) : {}
+    const currentVersion = pkgFile.version || config.projectVersion
+    this.props = _.assignIn(config, this.props, {
+      projectVersion: currentVersion
+    });
+
+    // Update the project yo-rc configuration file
+    if (currentVersion !== config.projectVersion) {
+      this.config.set(this.props);
+      this.config.save();
+    }
   }
 
   // Write subgenerator template to a dinamic generated destination
@@ -124,10 +138,13 @@ module.exports = class BaseGenerator extends Generator {
     );
   }
 
+  // Attempt to update the main class file adding
+  // the reference to the newly generated class
   updates({property}) {
 
     try {
-      const ast = this.getFileAST();
+      const mainClass = 'include/class-main.php';
+      const ast = this.getFileAST(mainClass);
       const classObject = ast.findClass(this.props.className);
       if (!classObject) {
         throw new Error(`The ${this.props.className} class does not exist.`);
@@ -145,6 +162,7 @@ module.exports = class BaseGenerator extends Generator {
         return;
       }
 
+      // add an array entry and save it back
       classProp.ast.value.items.push({
         kind: 'entry',
         key: {
@@ -158,13 +176,10 @@ module.exports = class BaseGenerator extends Generator {
           isDoubleQuote: false
         }
       });
-
-      this.writeFileAST(ast.toString());
+      this.writeFileAST(mainClass, ast.toString());
     } catch (e) {
       this.log(chalk.bold.red(e.toString()));
       this.warningMessage();
-    } finally {
-      this.end()
     }
 
   }
@@ -176,10 +191,6 @@ module.exports = class BaseGenerator extends Generator {
       `include_once(${this.props.definePrefix}_INCLUDE_DIR . ${this.fileRelativePath}`,
       chalk.bold.yellow('to your plugin main class file.')
     );
-  }
-
-  end() {
-    this.log('\nEverything', chalk.bold.green('was good'), 'see ya next my friend.\n');
   }
 
 };
