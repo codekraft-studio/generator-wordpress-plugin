@@ -1,13 +1,14 @@
 'use strict';
 
 const _ = require('lodash');
-const mkdirp = require('mkdirp');
 const path = require('path');
 const chalk = require('chalk');
+const mkdirp = require('mkdirp');
+const updateNotifier = require('update-notifier');
 const Generator = require('yeoman-generator');
 
-// Common functions
 const utils = require('../../common/utils');
+const { name, version } = require('../../package.json');
 
 const banner = chalk`
 {bold                          8                           } {red      8            w       }
@@ -16,6 +17,17 @@ const banner = chalk`
 {bold   YP  YP    Y8P' 8     Y88 88P' 8     Y88P Y88P Y88P } {red 88P' 8  Y8P8  Y88 8 8   8 }
 {bold                            8                         } {red 8            wwdP         }
 `;
+
+// Check for package updates
+updateNotifier({
+  pkg: {
+    name,
+    version
+  }
+}).notify({
+  defer: false,
+  isGlobal: true
+});
 
 // The main generator is indipendent from all
 // it initiate the project creating also a configuration file
