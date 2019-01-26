@@ -69,7 +69,7 @@ module.exports = class extends Generator {
         name: 'projectVersion',
         message: 'The version to initialize this project.',
         default: '0.0.1',
-        validate: utils.validateVresion
+        validate: utils.validateVersion
       }, {
         type: 'text',
         name: 'projectAuthor',

@@ -1,19 +1,29 @@
 'use strict';
 
+function validateRequired(input) {
+  if (input === '') {
+    return 'This field is required, please enter a valid value.';
+  }
+  return true;
+}
+
 module.exports = {
-  validateRequired(input) {
-    if (input === '') {
-      return 'This field is required, please enter a valid value.';
-    }
-    return true;
-  },
+  validateRequired: validateRequired,
   validateSlug(input) {
+    const req = validateRequired(input)
+    if (req !== true) {
+      return req
+    }
     if (!/^(?:[a-z]+-?[a-z]+)+$/g.test(input)) {
       return 'You should follow the WordPress plugin name standard.';
     }
     return true;
   },
   validateVersion(input) {
+    const req = validateRequired(input)
+    if (req !== true) {
+      return req
+    }
     if (!/[0-9]{1}\.([0-9]{1})\.([0-9]{1})/.test(input)) {
       return 'You should enter a valid version.';
     }
