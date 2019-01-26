@@ -14,10 +14,10 @@ First of all, if you don't have it already installed on your system, install [Ye
 npm install -g yo
 ```
 
-Than install the **wordpress-plugin** generator globally on your system.
+Than install the **@wptools/generator-plugin** generator globally on your system.
 
 ```bash
-npm install -g generator-wordpress-plugin
+npm install -g @wptools/generator-plugin
 ```
 
 ## Getting started
@@ -25,7 +25,7 @@ npm install -g generator-wordpress-plugin
 Now you have access to the generator through yeoman this mean you can generate new projects anywhere by typing:
 
 ```bash
-yo wordpress-plugin
+yo @wptools/plugin
 ```
 
 The generator will ask you some questions for setting the project configuration parameters and once is done the new project will be created.
@@ -35,7 +35,7 @@ The generator will ask you some questions for setting the project configuration 
 Inside an existing project __generated with this generator__ you can also use many sub generators to go further in the project base prototyping, let see some examples:
 
 ```bash
-yo wordpress-plugin:metabox MyMetabox
+yo @wptools/plugin:metabox MyMetabox
 ```
 
 Create a new metabox called "MyMetabox", the subgenerator take one argument which, in this case, is the class name of the metabox. You can use any name you want but it will fored to be capitalized CamelCase suffixed by "Metabox" or more generic, the subgenerator name, for generated class names, in order to follow common coding standards.
@@ -43,8 +43,8 @@ Create a new metabox called "MyMetabox", the subgenerator take one argument whic
 You have also other subgenerators, once it starts it will ask you some questions, based on the subgenerator context in order to customize the class and element rendering.
 
 ```bash
-yo wordpress-plugin:shortcode MyShortcode
-yo wordpress-plugin:widget MyWidget
+yo @wptools/plugin:shortcode MyShortcode
+yo @wptools/plugin:widget MyWidget
 ```
 
 The generator will also take care to __update your plugin main class__ automatically to include the newly generated classes.
@@ -53,7 +53,7 @@ The generator will also take care to __update your plugin main class__ automatic
 
 ## Generators
 
-* [wordpress-plugin](#app) The main generator that [create the plugin](https://codex.wordpress.org/Writing_a_Plugin)
+* [plugin](#app) The main generator that [create the plugin](https://codex.wordpress.org/Writing_a_Plugin)
 * [commentspage](#commentspage) Subgenerator for creating [comments pages](https://codex.wordpress.org/Function_Reference/add_comments_page)
 * [dashboardpage](#dashboardpage) Subgenerator for creating submenu [dashboard pages](https://codex.wordpress.org/Function_Reference/add_dashboard_page)
 * [dashwidget](#dashwidget) Subgenerator for creating [dashboard widgets](https://codex.wordpress.org/Dashboard_Widgets_API)
@@ -95,7 +95,7 @@ This is the default generator, once is called it will ask few questions and setu
 This command will create a metabox class inside the `include/metabox/`, than it will update the **$metaboxes** property on the main plugin class.
 The metabox template is based on [WordPress Codex Metabox](https://developer.wordpress.org/reference/functions/add_meta_box/) rules, for more information about the code please refer to it.
 
-#### example: `yo wordpress-plugin:metabox Test`
+#### example: `yo @wptools/plugin:metabox Test`
 
 ### shortcode
 
@@ -103,7 +103,7 @@ The metabox template is based on [WordPress Codex Metabox](https://developer.wor
 This command will create a shortcode class inside the `include/shortcode/`, than it will update the **$shortcodes** property on the main plugin class.
 The shortcode template is based on [WordPress Codex Shortcode](https://codex.wordpress.org/Shortcode_API) rules, for more information about the code please refer to it.
 
-#### example: `yo wordpress-plugin:shortcode Test`
+#### example: `yo @wptools/plugin:shortcode Test`
 
 #### options:
 
@@ -118,7 +118,7 @@ The shortcode template is based on [WordPress Codex Shortcode](https://codex.wor
 This command will create a widget class inside the `include/widget/`, than it will update the **$widgets** property on the main plugin class.
 The widget template is based on [WordPress Codex Widget](https://codex.wordpress.org/Widgets_API) rules, for more information about the code please refer to it.
 
-#### example: `yo wordpress-plugin:widget Test`
+#### example: `yo @wptools/plugin:widget Test`
 
 #### questions:
 
@@ -129,7 +129,7 @@ The widget template is based on [WordPress Codex Widget](https://codex.wordpress
 This command makes very simple to add new widgets to the [administration dashboard](https://codex.wordpress.org/Dashboard_SubPanel). Once is run it will create a dashwidget class inside the `include/dashwidget/`, than it will update the **$dashwidgets** property on the main plugin class.
 The dashwidget template is based on [WordPress Codex Dashboard Widgets](https://codex.wordpress.org/Dashboard_Widgets_API) rules, for more information about the code please refer to it.
 
-#### example: `yo wordpress-plugin:dashwidget Test`
+#### example: `yo @wptools/plugin:dashwidget Test`
 
 ### toolbar
 
@@ -139,7 +139,7 @@ The Toolbar contains links to information about WordPress, as well as quick-link
 This command will create a toolbar class inside the `include/toolbar/`, than it will update the **$toolbars** property on the main plugin class.
 The toolbar template is based on [WordPress Codex Toolbar](https://codex.wordpress.org/Toolbar) rules, for more information about the code please refer to it.
 
-#### example: `yo wordpress-plugin:toolbar Test`
+#### example: `yo @wptools/plugin:toolbar Test`
 
 #### questions:
 
@@ -159,7 +159,7 @@ Move inside the project folder and type:
 npm link
 ```
 
-That will install your project dependencies and symlink a global module to your local file. After npm is done, you'll be able to call `yo wordpress-plugin`
+That will install your project dependencies and symlink a global module to your local file. After npm is done, you'll be able to call `yo @wptools/plugin`
 
 ## Contributing
 
@@ -185,9 +185,10 @@ Apache-2.0 © [codekraft-studio](https://codekraft.it)
 -   Yeoman can be too opinionated at times but is easily convinced not to be.
 -   Feel free to [learn more about Yeoman](http://yeoman.io/).
 
-[npm-image]: https://badge.fury.io/js/generator-wordpress-plugin.svg
 
-[npm-url]: https://npmjs.org/package/generator-wordpress-plugin
+[npm-image]: https://badge.fury.io/js/%40wptools%2Fgenerator-plugin.svg
+
+[npm-url]: https://npmjs.org/package/@wptools/generator-plugin
 
 [travis-image]: https://travis-ci.org/codekraft-studio/generator-wordpress-plugin.svg?branch=master
 
