@@ -86,7 +86,7 @@ module.exports = class extends Generator {
         type: 'text',
         name: 'projectLicense',
         message: 'What license do you want to use?',
-        default: 'ISC',
+        default: 'GPL-2.0',
         validate: utils.validateRequired
       }
     ];
