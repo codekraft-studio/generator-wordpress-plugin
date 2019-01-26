@@ -52,7 +52,7 @@ module.exports = class BaseGenerator extends Generator {
       type: 'input',
       name: 'name',
       message: () => `What is the name for this ${this.name}?`,
-      default: (this.options.name || '').toLowerCase(),
+      default: (this.options.name || (this.name === 'app') ? this.appname : '').toLowerCase(),
       filter: v => v.toLowerCase(),
       validate: utils.validateRequired,
       when: !this.options.name || this.options.name === ''
