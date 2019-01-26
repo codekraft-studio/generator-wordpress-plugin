@@ -2,7 +2,6 @@
 
 const _ = require('lodash');
 const mkdirp = require('mkdirp');
-const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
 const Generator = require('yeoman-generator');
@@ -37,12 +36,6 @@ module.exports = class extends Generator {
       type: Boolean,
       default: true
     });
-
-    // To avoid mess throw error if selected folder exists and is not empty
-    const p = this.destinationPath(this.options.appname || '');
-    if (fs.existsSync(p) && fs.readdirSync(p).length) {
-      throw new Error(`The directory "${p}" is not empty.`)
-    }
   }
 
   // Ask user for project details
