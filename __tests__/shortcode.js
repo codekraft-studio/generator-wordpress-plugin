@@ -1,6 +1,3 @@
-'use strict';
-
-const _ = require('lodash');
 const path = require('path');
 const assert = require('yeoman-assert');
 const helpers = require('yeoman-test');
@@ -27,14 +24,6 @@ describe('SubGenerator:shortcode', () => {
       generator.config.set(mock.config);
       generator.config.save();
     }).on('end', done);
-  });
-
-  it('create class file in directory named like subgenerator', () => {
-    assert.file([outputPath]);
-  });
-
-  it('set the class name of the file as input plus subgenerator name', () => {
-    assert.fileContent(outputPath, `class ${mock.input}_${_.capitalize(subGenerator)}`);
   });
 
   it('enable the shortcode attributes filter', () => {
