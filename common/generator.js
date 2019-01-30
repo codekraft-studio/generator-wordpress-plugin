@@ -48,6 +48,12 @@ module.exports = class BaseGenerator extends Generator {
       required: false
     });
 
+    this.option('skip-write', {
+      type: Boolean,
+      description: 'Do not automatically update php files',
+      default: false
+    })
+
     this.questions = [{
       type: 'input',
       name: 'name',
@@ -141,6 +147,10 @@ module.exports = class BaseGenerator extends Generator {
   // Attempt to update the main class file adding
   // the reference to the newly generated class
   updates({property}) {
+    if (this.options.skipWrite) {
+      this.updateInstructions();
+      return;
+    }
 
     try {
       const mainClass = 'include/class-main.php';
@@ -179,13 +189,13 @@ module.exports = class BaseGenerator extends Generator {
       this.writeFileAST(mainClass, ast.toString());
     } catch (e) {
       this.log(chalk.bold.red(e.toString()));
-      this.warningMessage();
+      this.updateInstructions();
     }
 
   }
 
   // If the php file writing fails show to the user how to manually add the code
-  warningMessage() {
+  updateInstructions() {
     this.log(
       chalk.bold.yellow('You should manually add'),
       `include_once(${this.props.definePrefix}_INCLUDE_DIR . ${this.fileRelativePath}`,
