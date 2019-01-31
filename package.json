@@ -16,10 +16,11 @@
   "keywords": [
     "wordpress",
     "wordpress-tools",
-    "plugin",
+    "wordpress-plugin",
+    "wordpress-generator",
     "generator",
-    "yeoman-generator",
-    "wordpress/generator"
+    "yeoman",
+    "yeoman-generator"
   ],
   "devDependencies": {
     "coveralls": "^3.0.2",
