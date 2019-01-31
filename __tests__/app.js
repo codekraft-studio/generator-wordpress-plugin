@@ -29,6 +29,10 @@ describe('Generator:app', () => {
       assert.file('include/class-main.php');
     });
 
+    it('set the classname based on input', () => {
+      assert.fileContent('include/class-main.php', 'My_Plugin_Main');
+    })
+
     it('creates the plugin readme file', () => {
       assert.file('readme.txt');
     });

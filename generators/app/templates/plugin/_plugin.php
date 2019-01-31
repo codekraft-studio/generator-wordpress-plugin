@@ -28,5 +28,29 @@ define( "<%= definePrefix %>_DIR_BASENAME", plugin_basename( __FILE__ ) );
 define( "<%= definePrefix %>_DIR_PATH", plugin_dir_path( __FILE__ ) );
 define( "<%= definePrefix %>_DIR_URL", plugins_url( null, __FILE__ ) );
 
+register_activation_hook(
+	__FILE__,
+	array(
+		'<%= className %>_Main',
+		'activate'
+	)
+);
+
+register_deactivation_hook(
+	__FILE__,
+	array(
+		'<%= className %>_Main',
+		'deactivate'
+	)
+);
+
+register_uninstall_hook(
+	__FILE__,
+	array(
+		'<%= className %>_Main',
+		'uninstall'
+	)
+);
+
 // Require the main class file
 require_once( dirname(__FILE__) . '/include/class-main.php' );

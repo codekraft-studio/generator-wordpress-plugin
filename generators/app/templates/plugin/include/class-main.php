@@ -3,7 +3,7 @@
 // Block direct access to file
 defined( 'ABSPATH' ) or die( 'Not Authorized!' );
 
-class <%= className %> {
+class <%= className %>_Main {
 
 	private $settings;
 
@@ -18,13 +18,6 @@ class <%= className %> {
 	private $taxonomies = array();
 
 	public function __construct() {
-
-		// Plugin uninstall hook
-		register_uninstall_hook( <%= definePrefix %>_FILE, array(__CLASS__, 'plugin_uninstall') );
-
-		// Plugin activation/deactivation hooks
-		register_activation_hook( <%= definePrefix %>_FILE, array($this, 'plugin_activate') );
-		register_deactivation_hook( <%= definePrefix %>_FILE, array($this, 'plugin_deactivate') );
 
 		// Plugin Actions
 		add_action( 'plugins_loaded', array($this, 'plugin_init') );
@@ -75,23 +68,23 @@ class <%= className %> {
 	/**
 	* Plugin uninstall function
 	* called when the plugin is uninstalled
-	* @method plugin_uninstall
+	* @method uninstall
 	*/
-	public static function plugin_uninstall() { }
+	public static function uninstall() { }
 
 	/**
 	* Plugin activation function
 	* called when the plugin is activated
-	* @method plugin_activate
+	* @method activate
 	*/
-	public function plugin_activate() { }
+	public function activate() { }
 
 	/**
 	* Plugin deactivate function
 	* is called during plugin deactivation
-	* @method plugin_deactivate
+	* @method deactivate
 	*/
-	public function plugin_deactivate() { }
+	public function deactivate() { }
 
 	/**
 	* Plugin init function
@@ -267,4 +260,4 @@ class <%= className %> {
 
 }
 
-new <%= className %>;
+new <%= className %>_Main;
