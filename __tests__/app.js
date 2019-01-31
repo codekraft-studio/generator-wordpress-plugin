@@ -71,11 +71,9 @@ describe('Generator:app', () => {
   // Custom prompts and options
   describe('custom options: no project manager', () => {
     let cPrompts = Object.assign({}, prompts, { projectManager: false });
-    let tmpDirectory;
 
     // Run the generator
     beforeAll(() => helpers.run(path.join(__dirname, '../generators/app'))
-      .inTmpDir(dir => { tmpDirectory = dir; })
       .withPrompts(cPrompts));
 
     it('wont create the project package file', () => {
@@ -110,7 +108,7 @@ describe('Generator:app', () => {
           'git': false
         })
         .then(() => {
-          fs.stat(path.join(tmpDirectory, '.git'), (err, stats) => {
+          fs.stat(path.join(tmpDirectory, '.git'), (err) => {
             expect(err).toBeDefined();
             expect(err).toBeTruthy();
             done();

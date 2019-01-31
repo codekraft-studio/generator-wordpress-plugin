@@ -1,6 +1,6 @@
 {
-  "name": "generator-wordpress-plugin",
-  "version": "0.0.12",
+  "name": "@wptools/generator-plugin",
+  "version": "0.0.1",
   "description": "The best way to start creating your WordPress plugin projects.",
   "homepage": "https://github.com/codekraft-studio/generator-wordpress-plugin",
   "author": {
@@ -15,32 +15,37 @@
   "main": "generators/app/index.js",
   "keywords": [
     "wordpress",
-    "plugin",
+    "wordpress-tools",
+    "wordpress-plugin",
+    "wordpress-generator",
     "generator",
+    "yeoman",
     "yeoman-generator"
   ],
   "devDependencies": {
     "coveralls": "^3.0.2",
-    "eslint": "^5.10.0",
-    "eslint-config-xo-space": "^0.20.0",
-    "jest": "^23.6.0",
+    "eslint": "^5.12.1",
+    "jest": "^24.0.0",
     "yeoman-assert": "^3.1.1",
     "yeoman-test": "^1.9.1"
   },
   "dependencies": {
-    "chalk": "^2.4.1",
+    "chalk": "^2.4.2",
     "lodash": "^4.17.11",
     "php-writer": "^3.0.0",
-    "yeoman-generator": "^3.1.1"
+    "yeoman-generator": "^3.2.0",
+    "update-notifier": "^2.5.0"
   },
   "jest": {
     "testEnvironment": "node"
   },
   "scripts": {
-    "pretest": "eslint . --fix",
-    "test": "jest --coverage"
+    "pretest": "npm run lint",
+    "test": "jest --coverage",
+    "lint": "eslint . --fix"
   },
   "eslintConfig": {
+    "extends": "eslint:recommended",
     "env": {
       "jest": true,
       "node": true

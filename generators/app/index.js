@@ -1,15 +1,14 @@
 'use strict';
 
-const { version } = require('../../package.json');
 const _ = require('lodash');
-const mkdirp = require('mkdirp');
-const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
+const mkdirp = require('mkdirp');
+const updateNotifier = require('update-notifier');
 const Generator = require('yeoman-generator');
 
-// Common functions
 const utils = require('../../common/utils');
+const { name, version } = require('../../package.json');
 
 const banner = chalk`
 {bold                          8                           } {red      8            w       }
@@ -18,6 +17,17 @@ const banner = chalk`
 {bold   YP  YP    Y8P' 8     Y88 88P' 8     Y88P Y88P Y88P } {red 88P' 8  Y8P8  Y88 8 8   8 }
 {bold                            8                         } {red 8            wwdP         }
 `;
+
+// Check for package updates
+updateNotifier({
+  pkg: {
+    name,
+    version
+  }
+}).notify({
+  defer: false,
+  isGlobal: true
+});
 
 // The main generator is indipendent from all
 // it initiate the project creating also a configuration file
@@ -38,12 +48,6 @@ module.exports = class extends Generator {
       type: Boolean,
       default: true
     });
-
-    // To avoid mess throw error if selected folder exists and is not empty
-    const p = this.destinationPath(this.options.appname || '');
-    if (fs.existsSync(p) && fs.readdirSync(p).length) {
-      throw new Error(`The directory "${p}" is not empty.`)
-    }
   }
 
   // Ask user for project details
@@ -76,8 +80,8 @@ module.exports = class extends Generator {
         type: 'text',
         name: 'projectVersion',
         message: 'The version to initialize this project.',
-        default: '0.0.1',
-        validate: utils.validateVresion
+        default: '0.1.0',
+        validate: utils.validateVersion
       }, {
         type: 'text',
         name: 'projectAuthor',
@@ -87,7 +91,7 @@ module.exports = class extends Generator {
         type: 'text',
         name: 'projectLicense',
         message: 'What license do you want to use?',
-        default: 'ISC',
+        default: 'GPL-2.0',
         validate: utils.validateRequired
       }
     ];
@@ -112,7 +116,7 @@ module.exports = class extends Generator {
     }
 
     // Build project prefixes/namespaces
-    this.props.className = _.upperFirst(_.camelCase(this.props.projectName));
+    this.props.className = utils.toClassName(this.props.projectName);
     this.props.definePrefix = this.props.className.toUpperCase();
 
     // Init an empty repository
