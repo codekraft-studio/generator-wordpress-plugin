@@ -1,5 +1,7 @@
 'use strict';
 
+const _ = require('lodash');
+
 function validateRequired(input) {
   if (input === '') {
     return 'This field is required, please enter a valid value.';
@@ -8,6 +10,12 @@ function validateRequired(input) {
 }
 
 module.exports = {
+  toClassName(input) {
+    return _.snakeCase(input).replace(
+      /[a-zA-Z]+/g,
+      t => t.charAt(0).toUpperCase() + t.substr(1).toLowerCase()
+    )
+  },
   validateRequired: validateRequired,
   validateSlug(input) {
     const req = validateRequired(input)
