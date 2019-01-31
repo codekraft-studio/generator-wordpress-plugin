@@ -116,7 +116,7 @@ module.exports = class extends Generator {
     }
 
     // Build project prefixes/namespaces
-    this.props.className = _.upperFirst(_.camelCase(this.props.projectName));
+    this.props.className = utils.toClassName(this.props.projectName);
     this.props.definePrefix = this.props.className.toUpperCase();
 
     // Init an empty repository

@@ -75,7 +75,7 @@ module.exports = class BaseGenerator extends Generator {
       // Set custom properties based on input name
       this.props.id = _.snakeCase(this.props.name);
       this.props.title = _.startCase(this.props.name);
-      this.props.childClassName = _.upperFirst(_.camelCase(this.props.name));
+      this.props.childClassName = utils.toClassName(this.props.name);
 
       // Variables used in file creation
       this.fileName = _.kebabCase(`class-${this.props.name}-${this.name}`) + '.php';
