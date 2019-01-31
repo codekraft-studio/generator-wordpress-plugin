@@ -1,6 +1,6 @@
 {
   "name": "@wptools/generator-plugin",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "The best way to start creating your WordPress plugin projects.",
   "homepage": "https://github.com/codekraft-studio/generator-wordpress-plugin",
   "author": {
