@@ -23,7 +23,11 @@ defined( 'ABSPATH' ) or die( 'Not Authorized!' );
 // Plugin Defines
 define( "<%= definePrefix %>_FILE", __FILE__ );
 define( "<%= definePrefix %>_DIR", dirname(__FILE__) );
+
+define( "<%= definePrefix %>_CLI_DIR", dirname(__FILE__) . '/cli' );
 define( "<%= definePrefix %>_INCLUDE_DIR", dirname(__FILE__) . '/include' );
+define( "<%= definePrefix %>_ADMIN_DIR", dirname(__FILE__) . '/admin' );
+
 define( "<%= definePrefix %>_DIR_BASENAME", plugin_basename( __FILE__ ) );
 define( "<%= definePrefix %>_DIR_PATH", plugin_dir_path( __FILE__ ) );
 define( "<%= definePrefix %>_DIR_URL", plugins_url( null, __FILE__ ) );
@@ -53,4 +57,5 @@ register_uninstall_hook(
 );
 
 // Require the main class file
-require_once( dirname(__FILE__) . '/include/class-main.php' );
+require_once( <%= definePrefix %>_DIR . '/include/class-main.php' );
+add_action( 'plugins_loaded', array('<%= className %>_Main', 'init') );
