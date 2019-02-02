@@ -4,12 +4,18 @@ const path = require('path');
 const assert = require('yeoman-assert');
 const helpers = require('yeoman-test');
 
+const blackList = [
+  'app',
+  'templates',
+  'command'
+]
+
 describe("Subgenerators Test", function() {
 
   const generatorsPath = path.resolve(__dirname, '../generators');
   const subgenerators = fs.readdirSync(generatorsPath).filter(name => {
     return fs.lstatSync(path.resolve(generatorsPath, name)).isDirectory()
-  }).filter(name => ['app', 'templates'].includes(name) === false)
+  }).filter(name => blackList.includes(name) === false)
 
   for (var i = 0; i < subgenerators.length; i++) {
     const subgenerator = subgenerators[i]
@@ -24,7 +30,7 @@ describe("Subgenerators Test", function() {
 
         // Use mock parent values
         generator.on('ready', (generator) => {
-          outputPath = `include/${generator.directory || generator.name}/class-test-${generator.name}.php`;
+          outputPath = `${generator.directory}/${generator.name}/class-test-${generator.name}.php`;
           generator.config.set({
             "projectName": "my-plugin",
             "projectVersion": "0.0.1",

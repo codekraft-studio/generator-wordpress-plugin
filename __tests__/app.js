@@ -67,8 +67,9 @@ describe('Generator:app', () => {
     it('set the assets path', () => {
       assert.fileContent('include/class-main.php', `/assets/dist/user.css`);
       assert.fileContent('include/class-main.php', `/assets/dist/user.js`);
-      assert.fileContent('include/class-main.php', `/assets/dist/admin.css`);
-      assert.fileContent('include/class-main.php', `/assets/dist/admin.js`);
+
+      assert.fileContent('admin/class-admin.php', `/assets/dist/admin.css`);
+      assert.fileContent('admin/class-admin.php', `/assets/dist/admin.js`);
     });
   });
 
@@ -95,9 +96,10 @@ describe('Generator:app', () => {
 
     it('set the assets path', () => {
       assert.fileContent('include/class-main.php', `/assets/dist/user.css`);
-      assert.fileContent('include/class-main.php', `/assets/dist/admin.css`);
       assert.fileContent('include/class-main.php', `/assets/dist/user.js`);
-      assert.fileContent('include/class-main.php', `/assets/dist/admin.js`);
+
+      assert.fileContent('admin/class-admin.php', `/assets/dist/admin.css`);
+      assert.fileContent('admin/class-admin.php', `/assets/dist/admin.js`);
     });
   });
 
