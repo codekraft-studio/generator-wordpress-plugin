@@ -150,6 +150,12 @@ module.exports = class extends Generator {
       }, {
         src: this.templatePath('plugin/include/*'),
         dest: this.destinationPath('include/')
+      }, {
+        src: this.templatePath('plugin/admin/*'),
+        dest: this.destinationPath('admin/')
+      }, {
+        src: this.templatePath('plugin/cli/*'),
+        dest: this.destinationPath('cli/')
       }
     ];
 

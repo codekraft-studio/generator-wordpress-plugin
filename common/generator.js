@@ -54,6 +54,10 @@ module.exports = class BaseGenerator extends Generator {
       default: false
     })
 
+    // The default output path for subgenerated classes and files
+    this.directory = 'include';
+
+    // The default name question in case no arguments where provided
     this.questions = [{
       type: 'input',
       name: 'name',
@@ -63,45 +67,6 @@ module.exports = class BaseGenerator extends Generator {
       validate: utils.validateRequired,
       when: !this.options.name || this.options.name === ''
     }]
-  }
-
-  prompting(questions = []) {
-    questions = _.unionBy(this.questions, questions, 'name');
-    return this.prompt(questions).then(props => {
-      this.props = _.merge({
-        name: this.options.name
-      }, this.props, props);
-
-      // Set custom properties based on input name
-      this.props.id = _.snakeCase(this.props.name);
-      this.props.title = _.startCase(this.props.name);
-      this.props.childClassName = utils.toClassName(this.props.name);
-
-      // Variables used in file creation
-      this.fileName = _.kebabCase(`class-${this.props.name}-${this.name}`) + '.php';
-      this.fileRelativePath = `/${this.directory || this.name}/${this.fileName}`;
-      this.filePath = path.join('include', this.fileRelativePath);
-
-      // Log a new line as divider between outputs
-      this.log('');
-    });
-  }
-
-  // Get the AST rapresentation of the php class file that should
-  // be modified during the execution of the subgenerator
-  getFileAST(fileName) {
-    const fileSource = this.destinationPath(fileName);
-    const content = fs.readFileSync(fileSource, 'utf8');
-    return new writer(content, writerOptions);
-  }
-
-  // Write the plugin main class file content
-  writeFileAST(fileName, content) {
-    const filePath = this.destinationPath(fileName);
-    this.log(chalk.green('updated'), `${fileName} source code`)
-    fs.writeFileSync(filePath, content, {
-      encoding: 'utf8'
-    });
   }
 
   // Try to get the parent project configuration settings
@@ -126,68 +91,117 @@ module.exports = class BaseGenerator extends Generator {
     }
   }
 
+  // Ask a set of given question and at the end
+  // merge them with parent project properties than sets some
+  // internal variables used in execution based on resulting object
+  prompting(questions = []) {
+    questions = _.unionBy(this.questions, questions, 'name');
+    return this.prompt(questions).then(props => {
+      this.props = _.merge({
+        name: this.options.name
+      }, this.props, props);
+
+      // Set custom properties based on input name
+      this.props.id = _.snakeCase(this.props.name);
+      this.props.title = _.startCase(this.props.name);
+      this.props.childClassName = utils.toClassName(this.props.name);
+
+      // Variables used in file creation
+      this.fileName = _.kebabCase(`class-${this.props.name}-${this.name}`) + '.php';
+      this.fileClassPath = `${this.name}/${this.fileName}`;
+      this.fileRelativePath = `${this.directory}/${this.fileClassPath}`;
+
+      // Log a new line as divider between outputs
+      this.log('');
+    });
+  }
+
+  // Get the AST rapresentation of the php class file that should
+  // be modified during the execution of the subgenerator
+  getFileAST(fileName) {
+    const fileSource = this.destinationPath(fileName);
+    const content = fs.readFileSync(fileSource, 'utf8');
+    return new writer(content, writerOptions);
+  }
+
+  // Write the plugin main class file content
+  writeFileAST(fileName, content) {
+    const filePath = this.destinationPath(fileName);
+    this.log('  ', chalk.green('updated'), `${fileName} source code`)
+    fs.writeFileSync(filePath, content, {
+      encoding: 'utf8'
+    });
+  }
+
   // Write subgenerator template to a dinamic generated destination
   writing() {
-    this.log('\n  Updating the project:')
     this.sourceRoot(path.join(__dirname, '../generators/templates/'));
-
+    
     // Name is an option that has been set inside the subgenerator class
     // in the configuring method that is called before writing
-    const fileName = _.kebabCase(this.props.name);
-    const directoryName = this.directory || this.name;
-    const destination = path.join('include', directoryName, `class-${fileName}-${this.name}.php`);
-
     this.fs.copyTpl(
       this.templatePath(`${this.name}/template.php`),
-      this.destinationPath(destination),
+      this.destinationPath(this.fileRelativePath),
       this.props
     );
   }
 
   // Attempt to update the main class file adding
   // the reference to the newly generated class
-  updates({property}) {
+  updates({property, filename}) {
     if (this.options.skipWrite) {
       this.updateInstructions();
       return;
     }
 
     try {
-      const mainClass = 'include/class-main.php';
-      const ast = this.getFileAST(mainClass);
-      const classObject = ast.findClass(this.props.className);
+      const targetFile = filename || 'admin/class-admin.php';
+      const ast = this.getFileAST(targetFile);
+      const classObject = ast.findClass();
       if (!classObject) {
-        throw new Error(`The ${this.props.className} class does not exist.`);
+        throw new Error('There are no PHP classes to update.');
       }
 
+      // The new file class name and relative path in project
+      const childClassPath = `/${this.fileClassPath}`;
+      const childClass = `${this.props.childClassName}_${_.upperFirst(this.name)}`;
+
+      // Try to get the property if exists otherwise initialize it
       const classProp = classObject.getProperty(property);
       if (!classProp) {
-        throw new Error(`The ${property} array property was not found.`);
-      }
 
-      const childClass = `${this.props.childClassName}_${_.upperFirst(this.name)}`;
-      const index = classProp.ast.value.items.findIndex(e => e.key.value === childClass);
-      if( index > -1 ) {
-        this.log(chalk.cyan('identical'), `class name ${childClass} inside ${property} array.`)
-        return;
-      }
+        classObject.setProperty(property, `array(
+          '${childClass}' => '${childClassPath}'
+        )`, 'public static');
 
-      // add an array entry and save it back
-      classProp.ast.value.items.push({
-        kind: 'entry',
-        key: {
-          kind: 'string',
-          value: childClass,
-          isDoubleQuote: false
-        },
-        value: {
-          kind: 'string',
-          value: this.fileRelativePath,
-          isDoubleQuote: false
+      } else {
+
+        const index = classProp.ast.value.items.findIndex(e => e.key.value === childClass);
+        if( index > -1 ) {
+          this.log(chalk.cyan('identical'), `class name ${childClass} inside ${property} array.`)
+          return;
         }
-      });
-      this.writeFileAST(mainClass, ast.toString());
+
+        // add an array entry and save it back
+        classProp.ast.value.items.push({
+          kind: 'entry',
+          key: {
+            kind: 'string',
+            value: childClass,
+            isDoubleQuote: false
+          },
+          value: {
+            kind: 'string',
+            value: childClassPath,
+            isDoubleQuote: false
+          }
+        });
+
+      }
+
+      this.writeFileAST(targetFile, ast.toString());
     } catch (e) {
+      this.log('');
       this.log(chalk.bold.red(e.toString()));
       this.updateInstructions();
     }
@@ -197,9 +211,9 @@ module.exports = class BaseGenerator extends Generator {
   // If the php file writing fails show to the user how to manually add the code
   updateInstructions() {
     this.log(
-      chalk.bold.yellow('You should manually add'),
-      `include_once(${this.props.definePrefix}_INCLUDE_DIR . ${this.fileRelativePath}`,
-      chalk.bold.yellow('to your plugin main class file.')
+      chalk.bold.yellow('You should manually add the new file'),
+      this.fileRelativePath,
+      chalk.bold.yellow('in the desired place.')
     );
   }
 
